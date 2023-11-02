@@ -22,12 +22,16 @@
                     $shop = $suggestShop->viewSuggestShop();
                 ?>
             </div>
-            <div class="best_seller">
-                
+            <div class="suggest_product">
+                <?php
+                    include_once("./View/v_Product.php");
+                    $suggestShop = new viewShop();
+                    $shop = $suggestShop->viewSuggestShop();
+                ?>
             </div>
         </div>
         <div class="footer">
-
+          
         </div>
     </div>
 </body>

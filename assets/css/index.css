@@ -87,3 +87,9 @@ header nav ul li{
     padding: 0 8px;
     list-style: none;
 }
+
+.footer{
+    height: 200px;
+    background-color: #232f3e;
+    margin-top: 40px;
+}
