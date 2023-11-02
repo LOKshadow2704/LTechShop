@@ -1,13 +1,13 @@
 <?php
     class clsconnect{
             function connect(& $connect){
-                $servername = "192.168.1.64";
+                $servername = "192.168.2.26";
                 $username = "ltechshop";
-                $password = "123Legend";
+                $password = "123Legend*";
                 $connect = mysql_connect("".$servername."","".$username."","".$password."");
                 mysql_set_charset("UTF8");
                 if($connect){
-                    return mysql_select_db("test_web");
+                    return mysql_select_db("ltechshop");
                 }else{
                     return false;
                 }
