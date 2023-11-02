@@ -10,6 +10,9 @@ a{
     text-decoration: none;
     color: white;
 }
+a:hover{
+    color: #6b7888;
+}
 
 header{
     height: 100px;
@@ -59,8 +62,6 @@ header .top_right_header{
 
 .top_right_header .account,.top_right_header .cart{
     width: 50%;
-}
-.top_right_header .account{
     display: flex;
     align-items: center;
 }
@@ -73,4 +74,16 @@ header nav{
     height: 40px;
     width: 100%;
     background-color: #232f3e;
+}
+
+header nav ul {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding-left: 50px;
+}
+
+header nav ul li{
+    padding: 0 8px;
+    list-style: none;
 }
