@@ -12,5 +12,12 @@
             $tableProduct = $Product->selectSuggestProduct();
             return $tableProduct;
         }
+
+        function getProductbyManager(){
+            $userid =1;
+            $Product = new modelProduct();
+            $tableProduct = $Product->selectProductbyManager($userid);
+            return $tableProduct;
+        }
     }
 ?>

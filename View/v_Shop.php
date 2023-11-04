@@ -10,6 +10,7 @@
             }elseif(mysql_num_rows($table)==0){
                 echo "0 result";
             }else{
+                echo "<div class='suggest_shop'> <h1>Shop gợi ý cho bạn</h1>";
                 $dem=0;
                 echo "<ul>";
                 while($row = mysql_fetch_assoc($table)){
@@ -25,6 +26,7 @@
                 }
                 
                 echo "</ul>";
+                echo "</div>";
              }
         }
         }
