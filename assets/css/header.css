@@ -16,6 +16,10 @@ header .top_header .logo {
     width: 15%;
 }
 
+header .top_header .logo img {
+    margin-left: 15%;
+}
+
 header .top_header .search{
     width: 60%;
     display: flex;

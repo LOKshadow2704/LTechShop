@@ -3,7 +3,7 @@
     <div class='top_header'>
         <div class='logo'>
             <a href='index.php'>
-            <img src='https://drive.google.com/uc?id=1aUYwPUSM7I2EwjLx_XuUB75XkRmrWF2t' alt='' width='100%' height='100%'>
+            <img src='https://drive.google.com/uc?id=1aUYwPUSM7I2EwjLx_XuUB75XkRmrWF2t' alt='' width='70%' height='100%'>
             </a>
         </div>
         <div class='search'>
