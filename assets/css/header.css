@@ -1,0 +1,77 @@
+header{
+    height: 100px;
+    width: 100%;
+    color: white;
+}
+
+header .top_header{
+    height: 60px;
+    width: 100%;
+    background-color: #131921;
+    display: flex;
+}
+
+header .top_header .logo {
+    height: 100%;
+    width: 15%;
+}
+
+header .top_header .logo img {
+    margin-left: 15%;
+}
+
+header .top_header .search{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search input{
+    width: 70%;
+    height: 38px;
+    border-radius: 5px;
+    padding: 4px;
+    position: relative;
+    color: #131921 !important;
+}
+.search i{
+    position: absolute;
+    height: 23px;
+    right: 35%;
+    color: #131921;
+    font-size: 22px;
+}
+
+header .top_right_header{
+    width: 25%;
+    display: flex;
+}
+
+.top_right_header .account,.top_right_header .cart{
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.top_right_header .account>*{
+    margin: 0 2px;
+}
+
+header nav{
+    height: 40px;
+    width: 100%;
+    background-color: #232f3e;
+}
+
+header nav ul {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding-left: 50px;
+}
+
+header nav ul li{
+    padding: 0 8px;
+    list-style: none;
+}
