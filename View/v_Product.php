@@ -21,5 +21,36 @@
                     echo "</table>";    
                  }
         }
+
+        function viewSuggestProduct() {
+            $Product = new controllProduct();
+            $tableProduct = $Product->getSuggestProduct();
+                if(mysql_num_rows($tableProduct) > 0) {
+                    $count = 0;
+                    while($row = mysql_fetch_assoc($tableProduct)) {
+                        echo "<div class='Suggest_product'>";
+                        if($count == 0) {
+                            echo "<ul>"; 
+                        }
+                        echo "<li> <a href='index.php?pi=".$row['IDSanPham']."'>";
+                        echo "<br>";
+                        echo "<img width=280px height=200px src=".$row['HinhAnhSP'].">";
+                        echo "<br> <p style='height: 15px'><b>".$row["TenSP"]."</b></p>";  
+                        echo "<br><br>";
+                        echo $Product->$row["DonGia"]." VNĐ";
+                        echo "<br><br> <a href='#'></li>";
+                        $count++;
+                        if($count % 4 == 0 ) {
+                            echo "</ul>";
+                            $count = 0;
+                        }
+                    }
+                    echo"</div>";
+                } else {
+                    echo "o result";
+                }
+        }
+      
+        
     }
 ?>

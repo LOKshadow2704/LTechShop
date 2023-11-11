@@ -2,6 +2,10 @@ header{
     height: 100px;
     width: 100%;
     color: white;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 header .top_header{

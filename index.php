@@ -12,30 +12,30 @@
     <link rel="stylesheet" href="./assets/css/slideshow.css">
     <script src="./assets/js/slideshow.js"></script>
     <script src="https://kit.fontawesome.com/0bd872d3c5.js" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Trang chủ</title>
 </head>
 <body>
     <div id="root">
         <?php
             include_once('./View/v_header.php');
         ?>
-        <?php
-            if(isset($_REQUEST['MP'])){
-                $userid=1;
-                include_once("./View/v_Product.php");
-                $product = new viewProduct();
-                $table = $product ->getProductbyManager();
-            }else{
-                include_once("./View/slideshow.php");
-                include_once("./View/v_Shop.php");
-                $suggestShop = new viewShop();
-                $shop = $suggestShop->viewSuggestShop();
-                include_once("./View/v_Product.php");
-                $suggestShop = new viewShop();
-                $shop = $suggestShop->viewSuggestShop();
-            }
-        ?>
-        <div class="suggest_product">
+        <div class="container">
+            <?php
+                if(isset($_REQUEST['MP'])){
+                    $userid=1;
+                    include_once("./View/v_Product.php");
+                    $product = new viewProduct();
+                    $table = $product ->getProductbyManager();
+                }else{
+                    include_once("./View/slideshow.php");
+                    include_once("./View/v_Shop.php");
+                    include_once("./View/v_Product.php");
+                    $suggestShop = new viewShop();
+                    $shop = $suggestShop->viewSuggestShop();
+                    $suggestProduct = new ViewProduct();
+                    $product = $suggestProduct->viewSuggestProduct();
+                }
+            ?>
         </div>
         <?php
             include_once('./View/v_footer.php');
