@@ -1,0 +1,37 @@
+.product_info {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .product_info h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .product_info  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .product_info li {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  .product_info p.product_name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .product_info p.product_description {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .product_info p.product_price {
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+  }

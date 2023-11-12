@@ -32,17 +32,21 @@
             $tableProduct = $Product->getSuggestProduct();
                 if(mysql_num_rows($tableProduct) > 0) {
                     $count = 0;
+                   
+                    echo "<div class='Suggest_product'>";
+                    echo "<h1>Sản phẩm gợi ý</h1>";
                     while($row = mysql_fetch_assoc($tableProduct)) {
-                        echo "<div class='Suggest_product'>";
+                        
                         if($count == 0) {
+                         
                             echo "<ul>"; 
                         }
                         echo "<li> <a href='index.php?pi=".$row['IDSanPham']."'>";
                         echo "<br>";
                         echo "<img width=280px height=200px src=".$row['HinhAnhSP'].">";
-                        echo "<br> <p style='height: 15px'><b>".$row["TenSP"]."</b></p>";  
+                        echo "<br> <p style='color: black'><b>".$row["TenSP"]."</b></p>";  
                         echo "<br><br>";
-                        echo $Product->$row["DonGia"]." VNĐ";
+                        echo  "<p style= 'color: red'>".number_format($row["DonGia"],0 , ",",".")." VNĐ</p>";
                         echo "<br><br> <a href='#'></li>";
                         $count++;
                         if($count % 4 == 0 ) {
@@ -50,6 +54,7 @@
                             $count = 0;
                         }
                     }
+                 
                     echo"</div>";
                 } else {
                     echo "o result";

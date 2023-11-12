@@ -33,5 +33,15 @@
             }else
                 return false;
         }
+
+        function selectOneProduct($id){
+            $connect;
+            $cn_Product = new clsconnect();
+            if($cn_Product->connect($connect)){
+                $table = mysql_query("select * from sanpham where IDSanPham ='$id'");
+                return $table;
+            }else
+                return false;
+        }
     }
 ?>

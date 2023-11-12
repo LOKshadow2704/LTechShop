@@ -30,8 +30,8 @@
             <li> <a href='index.php'>Trang chủ</li></a>
             <li> <a href='index.php?viewP=1'>Sản phẩm</li></a>
             <li> <a href='index.php?MP=1'>Quản lý sản phẩm của bạn</li></a>
-            <li> <a href=''>Đơn bán</li></a>
-            <li> <a href=''>Đơn mua</li></a>
+            <li> <a href='index.php?MPO=1'>Đơn bán</li></a>
+            <li> <a href='index.php?PP=1'>Đơn mua</li></a>
         </ul>
     </nav>
 </header>";

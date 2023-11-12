@@ -2,23 +2,31 @@
 if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == true) {
     header("Location: index.php");
     exit();
-}
-if (isset($_POST['email']) && isset($_POST['password'])) {
+} elseif (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['rePassword'])) {
     include_once "./Model/m_auth.php";
     $auth = new modelAuth();
-
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $isLogin = $auth->login($email, $password);
-    if ($isLogin) {
+    $repassword = $_POST['rePassword'];
+    $name = $_POST['name'];
+    $address = $_POST['address'];
+    $phone = $_POST['phone'];
+    if ($password != $repassword) {
+        $login_error = "Xin vui lý nhập lại đúng mật khẩu";
+        echo '<script type="text/javascript">alert("' . $login_error . '");</script>';
+        return;
+    }
+    $rs = $auth->register($email, $password, $repassword, $name, $address, $phone);
+    if ($rs) {
         $_SESSION['isLogin'] = true;
         header("Location: index.php");
         exit();
     } else {
         $_SESSION['isLogin'] = false;
-        $login_error = "Invalid email or password";
+        $login_error = "Lỗi hệ thống vui lòng kiểm tra lại";
         echo '<script type="text/javascript">alert("' . $login_error . '");</script>';
     }
+
 }
 
 ?>
@@ -87,13 +95,26 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
 <body>
     <div class="login-container">
-        <h1>Account Login</h1>
+        <h1>Account Register</h1>
         <?php if (isset($login_error)): ?>
         <p>
             <?php echo $login_error; ?>
         </p>
         <?php endif;?>
         <form action="" method="post">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address">
+            </div>
+
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" id="email" name="email" required>
@@ -102,9 +123,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
+            <div class="form-group">
+                <label for="rePassword">Re Password</label>
+                <input type="password" id="rePassword" name="rePassword" required>
+            </div>
+
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <div class="form-group">
-                <input type="submit" value="Sign in">
+                <input type="submit" value="Sign up">
             </div>
         </form>
     </div>

@@ -19,5 +19,19 @@
             $tableProduct = $Product->selectProductbyManager($userid);
             return $tableProduct;
         }
+
+        function getOneProduct($id){
+            $Product = new modelProduct();
+            $tableProduct = $Product->selectOneProduct($id);
+            if(!$tableProduct){
+                return false;
+            }else{
+                if(mysql_num_rows($tableProduct)>0){
+                    return $tableProduct;
+                }else{
+                    return 0;
+                }
+            }
+        }
     }
 ?>
