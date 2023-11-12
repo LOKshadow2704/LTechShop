@@ -2,8 +2,6 @@
     margin: 0;
     padding: 0;
     font-family: "Amazon Ember",Arial,sans-serif;
-    font-size: 14px;
-    font-weight: 700;
 }
 
 .container{
@@ -11,10 +9,21 @@
     height: fit-content;
 }
 
+.container .subnav{
+    display: flex;
+    padding: 10px 20px;
+}
+
 a{
     text-decoration: none;
     color: white;
 }
+
+.container> .subnav a{
+    color: #131921;
+    display: flex;
+}
+
 a:hover{
     color: #6b7888;
 }

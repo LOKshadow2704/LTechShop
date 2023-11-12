@@ -9,15 +9,20 @@
                 }elseif(mysql_num_rows($table)==0){
                     echo "0 result";
                 }else{
+                    echo "<button class='button-68 add' role='button'>Thêm sản phẩm mới</button>";
                     echo "<table class='table_product'>";
+                    echo "<thead>";
                     echo "<tr>";
-                    echo "<td>Mã sản phẩm</td><td>Tên sản phẩm</td><td>Loại sản phẩm</td><td>Đơn giá </td><td>Link ảnh sản phẩm </td><td>Nhà cung cấp</td><td>Mô tả</td><td>tác vụ</td>";
+                    echo "<td>Mã sản phẩm</td><td>Tên sản phẩm</td><td>Loại sản phẩm</td><td>Đơn giá </td><td>Ảnh sản phẩm </td><td>Nhà cung cấp</td><td>Tác vụ</td>";
                     echo "</tr>";
+                    echo "</thead>";
+                    echo "<tbody>";
                     while($row = mysql_fetch_assoc($table)){
                         echo "<tr>";
-                        echo "<td>".$row['IDSanPham']."</td><td>".$row['TenSP']."</td><td>".$row['TenDanhMuc']."</td><td>".$row['DonGia']."</td><td>".$row['HinhAnhSP']."</td><td>".$row['NCC']."</td><td>".$row['MoTa']."</td><td><a href='admin.php?update=".$row['ProdID']."'><button class='button-68 update' role='button'>Sửa</button></a> <a href='admin.php?delete=".$row['ProdID']."' onclick='return confirm(\""."Are you sure you want to Remove?"."\");'><button class='button-68 delete' role='button'>Xóa</button></a></td>";
+                        echo "<td>".$row['IDSanPham']."</td><td>".$row['TenSP']."</td><td>".$row['TenDanhMuc']."</td><td>".$row['DonGia']."</td><td><img src='".$row['HinhAnhSP']."' width='100%'></td><td>".$row['NCC']."</td><td><div class='act'><a href='admin.php?update=".$row['ProdID']."'><button class='button-68 update' role='button'>Chỉnh sửa</button></a> <a href='admin.php?delete=".$row['ProdID']."' onclick='return confirm(\""."Are you sure you want to Remove?"."\");'><button class='button-68 delete' role='button'>Xóa</button></a></div></td>";
                         echo "</tr>";
                     }
+                    echo "</tbody>";
                     echo "</table>";    
                  }
         }

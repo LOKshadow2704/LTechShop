@@ -20,12 +20,23 @@
             include_once('./View/v_header.php');
         ?>
         <div class="container">
+            <div class="subnav">
+                <?php 
+                    if(isset($_REQUEST['MP'])){
+                        echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a><a href='index.php?MP=1'><p>&nbsp;/ Quản lý sản phẩm</p></a>";
+                    }else{
+                        echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a>";
+                    }
+                ?>
+            </div>
             <?php
                 if(isset($_REQUEST['MP'])){
                     $userid=1;
                     include_once("./View/v_Product.php");
                     $product = new viewProduct();
                     $table = $product ->getProductbyManager();
+                }elseif(isset($_REQUEST["login"])){
+                    include_once("./View/login.php");
                 }else{
                     include_once("./View/slideshow.php");
                     include_once("./View/v_Shop.php");
