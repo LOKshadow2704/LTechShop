@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./assets/css/table_PM.css">
     <link rel="stylesheet" href="./assets/css/button.css">
     <link rel="stylesheet" href="./assets/css/slideshow.css">
+    <link rel="stylesheet" href="./assets/css/form.css">
     <script src="./assets/js/slideshow.js"></script>
     <script src="https://kit.fontawesome.com/0bd872d3c5.js" crossorigin="anonymous"></script>
     <title>Trang chủ</title>
@@ -37,6 +38,8 @@
                     $table = $product ->getProductbyManager();
                 }elseif(isset($_REQUEST["login"])){
                     include_once("./View/login.php");
+                }elseif(isset($_REQUEST["addPr"])){
+                    include_once('./View/v_add_product.php');
                 }else{
                     include_once("./View/slideshow.php");
                     include_once("./View/v_Shop.php");
