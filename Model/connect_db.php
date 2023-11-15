@@ -7,7 +7,7 @@
                 $connect = mysql_connect("".$servername."","".$username."","".$password."");
                 mysql_set_charset("UTF8");
                 if($connect){
-                    return mysql_select_db("ltechshop"); #database mình tự import
+                    return mysql_select_db("ltechshop1"); #database mình tự import
                 }else{
                     return false;
                 }

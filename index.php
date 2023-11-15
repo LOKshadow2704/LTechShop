@@ -27,9 +27,8 @@
                 <?php 
                     if(isset($_REQUEST['MP'])){
                         echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a><a href='index.php?MP=1'><p>&nbsp;/ Quản lý sản phẩm</p></a>";
-                        if(isset($_REQUEST['addPr'])){
-                            
-                        }
+                    }elseif(isset($_REQUEST['addPr'])){
+                        echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a><a href='index.php?MP=1'><p>&nbsp;/ Quản lý sản phẩm</p></a><a href='index.php?addPr=1'><p>&nbsp;/ Thêm sản phẩm</p></a>";
                     }else{
                         echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a>";
                     }
@@ -70,6 +69,11 @@
                     include_once "./View/register.php"; 
                 }elseif(isset($_REQUEST["addPr"])){
                     include_once('./View/v_add_product.php');
+                }elseif(isset($_REQUEST["delete"])){
+                    include_once('./Controller/c_Product.php');
+                    $product = new controllProduct();
+                    $act = $product->deleteProduct();
+                    header("Location: index.php?MP=1");
                 }else{
                     include_once("./View/slideshow.php");
                     include_once("./View/v_Shop.php");

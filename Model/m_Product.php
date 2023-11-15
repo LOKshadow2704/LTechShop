@@ -43,5 +43,71 @@
             }else
                 return false;
         }
-    }
+
+        function insertProduct($IdUser,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdDescribe){
+            // Client ID of Imgur App 
+            $IMGUR_CLIENT_ID = '0a20a75ba1cc56c'; // Thay YOUR_CLIENT_ID bằng client ID của bạn
+                $fileType = $file['type'];
+
+                // Kiểm tra định dạng ảnh hợp lệ
+                $allowTypes = array('image/jpeg', 'image/png', 'image/gif');
+                if (in_array($fileType, $allowTypes)) {
+                    // Đọc nội dung của hình ảnh
+                    $imageSource = file_get_contents($file['tmp_name']);
+
+                    // Chuẩn bị dữ liệu để gửi lên Imgur
+                    $postFields = array(
+                        'image' => base64_encode($imageSource)
+                    );
+
+                    // Gửi yêu cầu lên Imgur
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, 'https://api.imgur.com/3/image');
+                    curl_setopt($ch, CURLOPT_POST, true);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Client-ID ' . $IMGUR_CLIENT_ID));
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+                    curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);
+                    curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, 0); 
+                    $response = curl_exec($ch);
+                    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+                    curl_close($ch);
+
+                    // Kiểm tra kết quả từ Imgur
+                    if ($status == 200) {
+                        $result = json_decode($response, true);
+                        if (!empty($result['data']['link'])) {
+                            // Đường link của ảnh trên Imgur
+                            $imgurLink = $result['data']['link'];
+                            
+                        } else {
+                            echo "Upload không thành công. Vui lòng thử lại.";
+                        }
+                    } else {
+                        echo "Lỗi khi gửi yêu cầu lên Imgur. HTTP status code: $status";
+                    }
+                } else {
+                    echo "Định dạng ảnh không hợp lệ.";
+                }
+            
+            $connect;
+            $cn_Product = new clsconnect();
+            if($cn_Product->connect($connect)){
+                $result = mysql_query("insert into sanpham(IDTaiKhoan,IDDanhMuc,TenSP,DonGia,NCC,HinhAnhSP,Mota) values($IdUser,$ProdCategory,'$ProdName',$ProdPrice,'$ProdSupp','$imgurLink','$ProdDescribe')");
+                return array($result,$status);
+            }else
+                return false;
+        }
+
+        function deleteProduct($id){
+            $connect;
+            $cn_Product = new clsconnect();
+            if($cn_Product->connect($connect)){
+                $table = mysql_query("delete from SanPham where IDSanPham ='$id'");
+                return $table;
+            }else
+                return false;
+        }
+}
 ?>

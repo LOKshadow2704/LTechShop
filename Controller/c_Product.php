@@ -33,5 +33,27 @@
                 }
             }
         }
+
+        function addProduct(){
+            //Bắt dữ liệu
+            $IdUser = 1;
+            $ProdName = $_REQUEST['TenSP'];
+            $ProdPrice = $_REQUEST['DonGia'];
+            $file = $_FILES['myFile'];
+            $ProdCategory = $_REQUEST['TenDanhMuc'];
+            $ProdSupp = $_REQUEST['NCC'];
+            $ProdDescribe = $_REQUEST['Mota'];
+            $pro = new modelProduct();
+            $result = $pro->insertProduct($IdUser,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdDescribe);
+            return $result;        
     }
+
+        function deleteProduct(){
+            //Bắt dữ liệu
+            $idProd = $_REQUEST['delete'];
+            $pro = new modelProduct();
+            $result = $pro->deleteProduct($idProd);
+            return $result;        
+    }
+}
 ?>

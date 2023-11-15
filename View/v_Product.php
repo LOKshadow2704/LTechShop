@@ -9,7 +9,7 @@
                 }elseif(mysql_num_rows($table)==0){
                     echo "0 result";
                 }else{
-                    echo "<a href='index.php?addPr=1'><button class='button-68 add' role='button'>Thêm sản phẩm mới</button></a>";
+                    echo "<a href='index.php?addPr'><button class='button-68 add' role='button'>Thêm sản phẩm mới</button></a>";
                     echo "<table class='table_product'>";
                     echo "<thead>";
                     echo "<tr>";
@@ -19,7 +19,7 @@
                     echo "<tbody>";
                     while($row = mysql_fetch_assoc($table)){
                         echo "<tr>";
-                        echo "<td>".$row['IDSanPham']."</td><td>".$row['TenSP']."</td><td>".$row['TenDanhMuc']."</td><td>".$row['DonGia']."</td><td><img src='".$row['HinhAnhSP']."' width='100%'></td><td>".$row['NCC']."</td><td><div class='act'><a href='index.php?update=".$row['ProdID']."'><button class='button-68 update' role='button'>Chỉnh sửa</button></a> <a href='admin.php?delete=".$row['ProdID']."' onclick='return confirm(\""."Are you sure you want to Remove?"."\");'><button class='button-68 delete' role='button'>Xóa</button></a></div></td>";
+                        echo "<td>".$row['IDSanPham']."</td><td>".$row['TenSP']."</td><td>".$row['TenDanhMuc']."</td><td>".number_format($row["DonGia"],0 , ",",".")."</td><td><img src='".$row['HinhAnhSP']."' width='100%'></td><td>".$row['NCC']."</td><td><div class='act'><a href='index.php?update=".$row['ProdID']."'><button class='button-68 update' role='button'>Chỉnh sửa</button></a> <a href='index.php?delete=".$row['IDSanPham']."' onclick='return confirm(\""."Bạn có chắc chắn muốn xóa sản phẩm ".$row['TenSP']." ?"."\");'><button class='button-68 delete' role='button'>Xóa</button></a></div></td>";
                         echo "</tr>";
                     }
                     echo "</tbody>";
@@ -47,7 +47,7 @@
                         echo "<br> <p style='color: black'><b>".$row["TenSP"]."</b></p>";  
                         echo "<br><br>";
                         echo  "<p style= 'color: red'>".number_format($row["DonGia"],0 , ",",".")." VNĐ</p>";
-                        echo "<br><br> <a href='#'></li>";
+                        echo "<br><br> </a></li>";
                         $count++;
                         if($count % 4 == 0 ) {
                             echo "</ul>";
