@@ -1,4 +1,4 @@
-.form-add {
+.form-update ,.form-add {
     width: 60%;
     margin: 50px auto;
     padding: 20px;
@@ -7,7 +7,7 @@
     border-radius: 4px;
 }
 
-.form-add h1 {
+.form-update h1 ,.form-add h1 {
     font-size: 28px;
     font-weight: 400;
     margin-bottom: 20px;
@@ -16,11 +16,11 @@
     text-align: center;
 }
 
-.form-add input,.form-add textarea {
+.form-update input,.form-add textarea ,.form-add input,.form-add textarea {
     margin-bottom: 14px;
 }
 
-.form-add label {
+.form-update label ,.form-add label {
     display: inline-block;
     width: 17%;
     margin-bottom: 5px;
@@ -31,7 +31,7 @@ textarea{
     height: 120px !important;
 }
 
-.form-add input,.form-add textarea,.form-add button {
+.form-update input,.form-add textarea,.form-add button ,.form-add input,.form-add textarea,.form-add button,.form-add textarea,.form-update button ,.form-update input,.form-update textarea,.form-update button {
     width: 80%;
     height: 31px;
     padding: 3px 7px;
@@ -42,18 +42,18 @@ textarea{
     border-radius: 3px;
 }
 
-.form-add .wrap_textarea {
+.form-update .wrap_textarea ,.form-add .wrap_textarea {
     display: flex;
     align-items: center;
     justify-content:center;
 }
 
-.form-add .act_submit{
+.form-update .act_submit,.form-add .act_submit{
     display: flex;
     flex-direction: row-reverse;
 }
 
-.form-add button {
+.form-update button ,.form-add button {
     width: 20%;
     margin-right: 10px;
     background-color: #f0c14b;
@@ -61,6 +61,10 @@ textarea{
     color: #111;
 }
 
-.form-add button:hover {
+.form-update button:hover ,.form-add button:hover {
     background-color: #e7b50d;
+}
+
+.form-update img{
+    width: 100%;
 }

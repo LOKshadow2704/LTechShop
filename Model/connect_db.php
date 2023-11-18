@@ -1,7 +1,7 @@
 <?php
     class clsconnect{
             function connect(& $connect){
-                $servername = "192.168.2.26";#đổi thành localhost ở đây và file config
+                $servername = "localhost";#đổi thành localhost ở đây và file config
                 $username = "ltechshop";    #root
                 $password = "123Legend*"; #mâtj khẩu để trống
                 $connect = mysql_connect("".$servername."","".$username."","".$password."");

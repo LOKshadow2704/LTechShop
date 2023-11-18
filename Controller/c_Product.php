@@ -55,5 +55,19 @@
             $result = $pro->deleteProduct($idProd);
             return $result;        
     }
+
+    function updateProduct(){
+        //Bắt dữ liệu
+        $idProd = $_REQUEST['update'];
+        $ProdName = $_REQUEST['TenSP'];
+        $ProdPrice = $_REQUEST['DonGia'];
+        $file = $_FILES['myFile'];
+        $ProdCategory = $_REQUEST['TenDanhMuc'];
+        $ProdSupp = $_REQUEST['NCC'];
+        $ProdDescribe = $_REQUEST['Mota'];
+        $pro = new modelProduct();
+        $result = $pro->updateProduct($idProd,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdDescribe);
+        return $result;        
+}
 }
 ?>
