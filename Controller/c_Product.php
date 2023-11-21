@@ -42,9 +42,10 @@
             $file = $_FILES['myFile'];
             $ProdCategory = $_REQUEST['TenDanhMuc'];
             $ProdSupp = $_REQUEST['NCC'];
+            $ProdQuan = $_REQUEST['soluong'];
             $ProdDescribe = $_REQUEST['Mota'];
             $pro = new modelProduct();
-            $result = $pro->insertProduct($IdUser,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdDescribe);
+            $result = $pro->insertProduct($IdUser,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdQuan,$ProdDescribe);
             return $result;        
     }
 

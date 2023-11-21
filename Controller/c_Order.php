@@ -15,11 +15,19 @@
             return $tableOrder;
         }
 
-        function getSalesOrder(){
-            $idorder =1;
+        function getSalesOrder($idorder){
+            //$idorder =1;
             $Order = new modelOrder();
             $tableOrder = $Order->selectSalesOrder($idorder);
-            return $tableOrder;
-        }
+            if(!$tableOrder){
+                return false;
+            }else{
+                if(mysql_num_rows($tableOrder)>0){
+                    return $tableOrder;
+                }else{
+                    return 0;
+                }
+            }
     }
+}
 ?>

@@ -1,0 +1,56 @@
+/*-------------------------------viewManagermentSalesOrder--------------------------------------*/
+.M_SalesOrder {
+    border-collapse:collapse;
+    font-size: 15px !important;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.M_SalesOrder  thead{
+    background-color: #f0c14b;
+    color: black;
+    border-bottom: 1px solid #a2a1a1;
+}
+
+.M_SalesOrder tr td{
+    border-bottom: 1px solid #a2a1a1;
+}
+
+.M_SalesOrder tr td{
+    height: 100px;
+    width: 5%;
+    font-weight: lighter;
+}
+
+.M_SalesOrder tr th{
+    height: 100px;
+    width: 5%;
+}
+/*-----------------------------------------------------------------------------------------------*/
+
+/*-------------------------------viewPuchaseOrder--------------------------------------*/
+.P_Order ,.S_Order{
+    border-collapse:collapse;
+    width: 100%;
+    font-size: 15px !important;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.P_Order thead, .S_Order thead{
+    background-color: #f0c14b;
+    color: black;
+    border-bottom: 1px solid #a2a1a1;
+}
+
+
+.P_Order tr td, .S_Order tr td{
+    border-bottom: 1px solid #a2a1a1;
+    font-weight: lighter;
+}
+
+
+.P_Order tr th, .S_Order tr th{
+    height: 100px;
+    width: 5%;
+   
+}
+/*-------------------------------------------------------------------------------------*/

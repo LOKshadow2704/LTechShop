@@ -5,8 +5,13 @@
 }
 
 .container{
+    width: 100% !important;
     margin-top: 120px;
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
 }
 
 .container .subnav{
@@ -14,18 +19,19 @@
     padding: 10px 20px;
 }
 
-a{
-    text-decoration: none;
-    color: white;
+header a , .footer a{
+    text-decoration: none  !important;
+    color: white !important;
 }
 
 .container> .subnav a{
     color: #131921;
     display: flex;
 }
-
 a:hover{
-    color: #6b7888;
+    color: #6b7888 !important;
+    text-decoration: none !important;
+
 }
 
 

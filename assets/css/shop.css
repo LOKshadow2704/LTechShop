@@ -1,25 +1,24 @@
-.Suggest_product{
+.shop_one{
     margin-top: 20px;
-    width: fit-content;
 }
 
-.Suggest_product h1{
+.shop_one h1{
     margin-left: 30px;
     font-size: 24px;
     padding: 20px 20px 20px 0;
 }
 
-.Suggest_product ul{
+.shop_one ul{
     display: flex;
     justify-content: center;
 }
 
-.Suggest_product li{
+.shop_one li{
     width: 280px;
     height: auto;
 
 }
-.Suggest_product ul li{
+.shop_one ul li{
     list-style: none;
     margin: 0 20px;
 }

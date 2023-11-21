@@ -27,7 +27,7 @@
             $connect;
             $cn_Product = new clsconnect();
             if($cn_Product->connect($connect)){
-                $table = mysql_query("select p.IDSanPham,d.TenDanhMuc,p.TenSP, p.DonGia, p.NCC, p.HinhAnhSP,p.MoTa from SanPham as p left join DanhMucSanPham as d on p.IDDanhMuc = d.IDDanhMuc where IDTaiKhoan =".$userid);
+                $table = mysql_query("select p.IDSanPham,d.TenDanhMuc,p.TenSP, p.DonGia, p.NCC,p.SoLuong, p.HinhAnhSP,p.MoTa from SanPham as p left join DanhMucSanPham as d on p.IDDanhMuc = d.IDDanhMuc where IDTaiKhoan =".$userid);
                 $cn_Product->disconnect($connect);
                 return $table;
             }else
@@ -44,7 +44,7 @@
                 return false;
         }
 
-        function insertProduct($IdUser,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdDescribe){
+        function insertProduct($IdUser,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdQuan,$ProdDescribe){
             // Client ID of Imgur App 
             $IMGUR_CLIENT_ID = '0a20a75ba1cc56c'; // Thay YOUR_CLIENT_ID bằng client ID của bạn
                 $fileType = $file['type'];
@@ -94,7 +94,7 @@
             $connect;
             $cn_Product = new clsconnect();
             if($cn_Product->connect($connect)){
-                $result = mysql_query("insert into sanpham(IDTaiKhoan,IDDanhMuc,TenSP,DonGia,NCC,HinhAnhSP,Mota) values($IdUser,$ProdCategory,'$ProdName',$ProdPrice,'$ProdSupp','$imgurLink','$ProdDescribe')");
+                $result = mysql_query("insert into sanpham(IDTaiKhoan,IDDanhMuc,TenSP,DonGia,NCC,HinhAnhSP,SoLuong,Mota) values($IdUser,$ProdCategory,'$ProdName',$ProdPrice,'$ProdSupp','$imgurLink',$ProdQuan,'$ProdDescribe')");
                 return array($result,$status);
             }else
                 return false;

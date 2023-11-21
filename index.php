@@ -13,14 +13,23 @@
     <link rel="stylesheet" href="./assets/css/form.css">
     <link rel="stylesheet" href="./assets/css/product_info.css">
     <link rel="stylesheet" href="./assets/css/suggestProduct.css">
+    <link rel="stylesheet" href="./assets/css/login.css">
+    <link rel="stylesheet" href="./assets/css/Order.css">
+    <link rel="stylesheet" href="./assets/css/shop.css">
     <script src="./assets/js/slideshow.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/0bd872d3c5.js" crossorigin="anonymous"></script>
-    <title>Trang chủ</title>
+    <title>LTechShop</title>
 </head>
 <body>
     <div id="root">
         <?php
-            include_once('./View/v_header.php');
+            session_start();
+            include_once('./View/v_Header.php');
+            $viewHeader = new viewHeader();
+            $viewHeader->showHeader();
         ?>
         <div class="container">
             <div class="subnav">
@@ -29,6 +38,8 @@
                         echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a><a href='index.php?MP=1'><p>&nbsp;/ Quản lý sản phẩm</p></a>";
                     }elseif(isset($_REQUEST['addPr'])){
                         echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a><a href='index.php?MP=1'><p>&nbsp;/ Quản lý sản phẩm</p></a><a href='index.php?addPr=1'><p>&nbsp;/ Thêm sản phẩm</p></a>";
+                    }elseif(isset($_REQUEST['MPO'])){
+                        echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a><a href='index.php?MPO=1'><p>&nbsp;/ Quản lý Đơn bán</p></a>";
                     }elseif(isset($_REQUEST['update'])){
                         echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a><a href='index.php?MP=1'><p>&nbsp;/ Quản lý sản phẩm</p></a><a href='index.php?update=".$_REQUEST['update']."'><p>&nbsp;/ Cập nhật sản phẩm</p></a>";
                     }else{
@@ -52,10 +63,9 @@
                 }
                 elseif(isset($_REQUEST['DO'])){
                     //Trang đơn bán
-                    $idorder=1;
                     include_once("./View/v_Order.php");
                     $product = new viewOrder();
-                    $table = $product ->viewSalesOrder();
+                    $table = $product ->viewSalesOrder($_REQUEST["DO"]);
                 }
                 elseif(isset($_REQUEST['PP'])){
                     //Trang đơn mua
@@ -70,10 +80,14 @@
                     $Product -> viewOneProduct($_REQUEST["pi"]);
                 }elseif (isset($_REQUEST["login"])) {
                     //Đăng nhập
-                    include_once "./View/login.php";
+                    include_once "./View/v_Login.php";
+                    $page = new viewLogin();
+                    $page->showLoginPage();
                 } elseif (isset($_REQUEST["signup"])) {
                     //Đăng ký
-                    include_once "./View/register.php"; 
+                    include_once "./View/v_register.php"; 
+                    $page = new viewRegister();
+                    $page->showRegisterPage();
                 }elseif(isset($_REQUEST["addPr"])){
                     //Thêm sản phẩm
                     include_once('./View/v_add_product.php');
@@ -85,7 +99,12 @@
                     include_once('./Controller/c_Product.php');
                     $product = new controllProduct();
                     $act = $product->deleteProduct();
-                    header("Location: index.php?MP=1");
+                    echo "<script>alert('Xóa thành công')</script>";
+                    header("Refresh: 0; url = index.php?MP=1");
+                }elseif(isset($_REQUEST['idshop'])){
+                    include("./View/v_Shop.php");
+                    $Product = new viewShop();
+                    $Product -> viewoneShop($_REQUEST["idshop"]);
                 }else{
                     //Trang chủ
                     include_once("./View/slideshow.php");

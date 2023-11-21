@@ -39,6 +39,7 @@ header .top_header .search{
     padding: 4px;
     position: relative;
     color: #131921 !important;
+    font-size: 15px;
 }
 .search i{
     position: absolute;

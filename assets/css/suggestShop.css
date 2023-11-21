@@ -1,5 +1,8 @@
 .suggest_shop , .Suggest_product{
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+    margin-top: 20px;
+    border-radius: 10px;
 }
 
 .suggest_shop h1{

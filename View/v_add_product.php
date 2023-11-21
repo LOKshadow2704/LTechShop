@@ -17,6 +17,9 @@
         <label for='NCC'>Nhà cung cấp</label>
         <input type='text' id='NCC' name='NCC' > <br>
 
+        <label for='soluong'>Số lượng</label>
+        <input type='number' id='soluong' name='soluong' > <br>
+
         <div class='wrap_textarea'>
             <label for='Mota'>Mô tả sản phẩm</label>
             <textarea type='number' id='Mota' name='Mota' ></textarea>
@@ -35,6 +38,7 @@
         if($addProd[1]==200){
             if($addProd[0]){
                 echo "<script>alert('Thêm sản phẩm thành công')</script>";
+                header("Refresh: 0; url = index.php?MP=1");
             }else{
                 echo "<script>alert('Thêm sản phẩm không thành công')</script>";
             }

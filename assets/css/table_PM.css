@@ -52,6 +52,10 @@
 }
 
 .table_product tr td:nth-child(7) {
+    width: 5%;
+}
+
+.table_product tr td:nth-child(8) {
     width: 10%;
 }
 
