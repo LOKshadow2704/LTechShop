@@ -33,7 +33,7 @@
                         }
                     echo "</div>
                     <div class='cart'>
-                        <a href=''>
+                        <a href='index.php?cart'>
                             <i class='fa-solid fa-cart-plus' style='color: #ffffff;'></i>
                             Giỏ hàng
                         </a>
@@ -43,15 +43,15 @@
             <nav>
                 <ul>
                     <li> <a href='index.php'>Trang chủ</li></a>
-                    <li> <a href='index.php?viewP=1'>Sản phẩm</li></a>
-                    <li> <a href='index.php?MP=1'>Quản lý sản phẩm của bạn</li></a>
-                    <li> <a href='index.php?MPO=1'>Đơn bán</li></a>
+                    <li> <a href='index.php?seller'>Trang người bán</li></a>    
                     <li> <a href='index.php?PP=1'>Đơn mua</li></a>
                 </ul>
             </nav>
+            
         </header>";
         }
     }
-    
+    //<li> <a href='index.php?MP=1'>Quản lý sản phẩm của bạn</li></a>
+    //<li> <a href='index.php?MPO=1'>Đơn bán</li></a>
    
 ?>

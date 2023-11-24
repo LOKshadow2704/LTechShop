@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once "./Model/m_Auth.php";
 class controllerAuth
 {
@@ -8,14 +9,21 @@ class controllerAuth
         $email = $_POST['email'];
         $password = $_POST['password'];
         $isLogin = $auth->login($email, $password);
-        if ($isLogin) {
-            $_SESSION['isLogin'] = true;
-            header("Location: index.php");
-        } else {
+        if(!$isLogin){
+            echo "ERROR";
+        }elseif(mysql_num_rows($isLogin)==0){
             $_SESSION['isLogin'] = false;
             $login_error = "Đăng nhập không thành công. Kiểm tra lại thông tin!";
             echo '<script type="text/javascript">alert("' . $login_error . '");</script>';
+        }else{
+            $row = mysql_fetch_assoc($isLogin);
+            if ($isLogin) {
+                $_SESSION['isLogin'] = true;
+                $_SESSION['idLogin']=$row['IDTaiKhoan'];
+                header("Location: index.php");
+            }
         }
+        
     }
 
     public function register()

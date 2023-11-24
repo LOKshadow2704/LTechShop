@@ -10,12 +10,7 @@ class modelAuth
             $query = "SELECT * FROM taikhoan WHERE TenDangNhap = '$user' AND MatKhau = '$pass'";
             $table = mysql_query($query);
             $cn_Auth->disconnect($connect);
-            if ($table) {
-                if (mysql_num_rows($table) > 0) {
-                    return true;
-                }
-            }
-
+            return $table;
         }
         return false;
     }

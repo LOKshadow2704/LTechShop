@@ -4,7 +4,7 @@ class viewLogin{
     function showLoginPage(){
         if ( $_SESSION['isLogin'] == true) {
             echo "<script>alert('Đăng nhập thành công')</script>";
-            header("Location: index.php");
+            header("Refresh:0; url=index.php");
         }
         if (isset($_POST['email']) && isset($_POST['password'])) {
             include_once "./Controller/c_auth.php";

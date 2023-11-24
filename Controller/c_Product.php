@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include_once("./Model/m_Product.php");
     class controllProduct{
         function getAllProduct(){
@@ -14,9 +15,8 @@
         }
 
         function getProductbyManager(){
-            $userid =1;
             $Product = new modelProduct();
-            $tableProduct = $Product->selectProductbyManager($userid);
+            $tableProduct = $Product->selectProductbyManager($_SESSION['idLogin']);
             return $tableProduct;
         }
 

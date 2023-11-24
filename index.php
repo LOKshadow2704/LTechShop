@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/table_PM.css">
     <link rel="stylesheet" href="./assets/css/button.css">
-    <link rel="stylesheet" href="./assets/css/slideshow.css">
+    <link rel="stylesheet" href="./assets/css/seller.css">
     <link rel="stylesheet" href="./assets/css/form.css">
     <link rel="stylesheet" href="./assets/css/product_info.css">
     <link rel="stylesheet" href="./assets/css/suggestProduct.css">
     <link rel="stylesheet" href="./assets/css/login.css">
     <link rel="stylesheet" href="./assets/css/Order.css">
     <link rel="stylesheet" href="./assets/css/shop.css">
-    <script src="./assets/js/slideshow.js"></script>
+    <link rel="stylesheet" href="./assets/css/cart.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -32,37 +32,34 @@
             $viewHeader->showHeader();
         ?>
         <div class="container">
-            <div class="subnav">
-                <?php 
-                    if(isset($_REQUEST['MP'])){
-                        echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a><a href='index.php?MP=1'><p>&nbsp;/ Quản lý sản phẩm</p></a>";
-                    }elseif(isset($_REQUEST['addPr'])){
-                        echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a><a href='index.php?MP=1'><p>&nbsp;/ Quản lý sản phẩm</p></a><a href='index.php?addPr=1'><p>&nbsp;/ Thêm sản phẩm</p></a>";
-                    }elseif(isset($_REQUEST['MPO'])){
-                        echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a><a href='index.php?MPO=1'><p>&nbsp;/ Quản lý Đơn bán</p></a>";
-                    }elseif(isset($_REQUEST['update'])){
-                        echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a><a href='index.php?MP=1'><p>&nbsp;/ Quản lý sản phẩm</p></a><a href='index.php?update=".$_REQUEST['update']."'><p>&nbsp;/ Cập nhật sản phẩm</p></a>";
-                    }else{
-                        echo "<a href='index.php'><i class='fa-solid fa-house-chimney-window'></i><p>&nbsp;Trang chủ</p></a>";
-                    }
-                ?>
-            </div>
             <?php
                 if(isset($_REQUEST['MP'])){
                     //Trang quản lý sản phẩm
-                    $userid=1;
+                    echo "<div class='wrap_seller'>";
+                    include_once('./View/v_seller.php');
+                    $cart = new viewSeller();
+                    $table = $cart->leftMenu();
                     include_once("./View/v_Product.php");
                     $product = new viewProduct();
+                    echo "<div class='rightMenu'>";
                     $table = $product ->getProductbyManager();
+                    echo "</div>";
+                    echo "</div>";
                 }elseif(isset($_REQUEST['MPO'])){
-                    //Trang xem chi tiết đơn hàng
-                    $userid=1;
+                    //Trang đơn bán
+                    echo "<div class='wrap_seller'>";
+                    include_once('./View/v_seller.php');
+                    $cart = new viewSeller();
+                    $table = $cart->leftMenu();
                     include_once("./View/v_Order.php");
                     $product = new viewOrder();
+                    echo "<div class='rightMenu'>";
                     $table = $product ->viewManagermentSalesOrder();
+                    echo "</div>";
+                    echo "</div>";
                 }
                 elseif(isset($_REQUEST['DO'])){
-                    //Trang đơn bán
+                    //Trang chi tiết đơn bán
                     include_once("./View/v_Order.php");
                     $product = new viewOrder();
                     $table = $product ->viewSalesOrder($_REQUEST["DO"]);
@@ -105,6 +102,26 @@
                     include("./View/v_Shop.php");
                     $Product = new viewShop();
                     $Product -> viewoneShop($_REQUEST["idshop"]);
+                }elseif(isset($_REQUEST["cart"])){
+                    //giỏ hàng
+                    include_once('./View/v_cart.php');
+                    $cart = new viewCart();
+                    $table = $cart->Cart();
+                }elseif(isset($_REQUEST["seller"])){
+                    if(isset($_SESSION['idLogin'])){
+                        //Trang người bán
+                        echo "<div class='wrap_seller'>";
+                        include_once('./View/v_seller.php');
+                        $cart = new viewSeller();
+                        $table = $cart->leftMenu();
+                        echo "<div class='rightMenu'>";
+                        echo "</div>";
+                        echo "</div>";
+                    }else{
+                        echo "<script>alert('Vui lòng đăng nhập')</script>";
+                        header("Refresh: 0; url = index.php");
+                    }
+                    
                 }else{
                     //Trang chủ
                     include_once("./View/slideshow.php");

@@ -1,24 +1,75 @@
-.footer{
+#footer {
+    margin-top: 20px;
+    color: #fff;
+    padding: 20px 0;
+    margin-top: 40px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    background-color: #232f3e !important;
+}
+.footer-container {
     display: flex;
-    justify-content: center;
-    color: #ddd;
-    font-size: 14px;
-}
-.footer div{
-    width: 30%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px; /* Khoảng cách giữa các cột trong footer */
 }
 
-.footer div>*:not(h6){
-    padding-left: 20px;
+.footer-column {
+    flex: 1;
+    max-width: 350px;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 8px; /* Góc bo tròn cho khung footer */
+	text-align: left;
 }
 
-.footer h6{
-    padding: 20px;
-    font-size: 20px;
+.footer-column h3 {
+    color: #fff;
+    border-bottom: 2px dashed #fff; /* Đường gạch ngắn */
+    padding-bottom: 8px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.footer ul li{
+.footer-column p,
+.footer-column ul {
     list-style: none;
-    margin: 5px 0px;
+    padding: 0;
+    margin: 0;
+    line-height: 1.8;
 }
 
+.footer-column a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-column a:hover {
+    color: #ecf0f1;
+    transform: scale(1.1);
+}
+
+.logo-container img {
+    max-width: 25px; /* Điều chỉnh kích thước tối đa chiều rộng của logo */
+    height: auto; /* Giữ tỷ lệ khung hình */
+    margin: 5px; /* Tạo khoảng cách giữa các logo */
+}
+
+.centered-image {
+    display: block;
+    margin: 0 auto; /* Canh giữa theo chiều ngang */
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-column {
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+}

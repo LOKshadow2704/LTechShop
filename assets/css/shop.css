@@ -11,6 +11,8 @@
 .shop_one ul{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 .shop_one li{

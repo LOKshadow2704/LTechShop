@@ -1,0 +1,38 @@
+.wrap_seller{
+    width: 100%;
+    display: flex;
+}
+
+.leftMenu {
+    width: 20%;
+    background-color: #131921;
+}
+
+.leftMenu h4{
+    color: whitesmoke;
+    margin-left: 20px;
+    padding: 10px 0;
+}
+
+.leftMenu ul {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.leftMenu ul li{
+    list-style: none;
+    margin: 10px 0 10px 20px; 
+}
+
+.leftMenu ul li a{
+    color: white;
+}
+
+.rightMenu {
+    width: 80%;
+}
+
+.rightMenu h1{
+    margin-left: 20px;
+}

@@ -39,7 +39,6 @@
                     while($row = mysql_fetch_assoc($tableProduct)) {
                         
                         if($count == 0) {
-                         
                             echo "<ul>"; 
                         }
                         echo "<li> <a href='index.php?pi=".$row['IDSanPham']."'>";
@@ -48,7 +47,7 @@
                         echo "<br> <p style='color: black'><b>".$row["TenSP"]."</b></p>";  
                         echo "<br><br>";
                         echo  "<p style= 'color: red'>".number_format($row["DonGia"],0 , ",",".")." VNĐ</p>";
-                        echo "<br><br><li> <a href=''></li>";
+                        echo "<br></a></li>";
                         $count++;
                         if($count % 4 == 0 ) {
                             echo "</ul>";

@@ -9,8 +9,9 @@
                 }elseif(mysql_num_rows($table)==0){
                     echo "0 result";
                 }else{
+                    echo "<h1>Quản lý sản phẩm</h1>";
                     echo "<a href='index.php?addPr'><button class='button-68 add' role='button'>Thêm sản phẩm mới</button></a>";
-                    echo "<table class='table_product'>";
+                    echo "<table class='table_product table-hover'>";
                     echo "<thead>";
                     echo "<tr>";
                     echo "<td>Mã sản phẩm</td><td>Tên sản phẩm</td><td>Loại sản phẩm</td><td>Đơn giá </td><td>Ảnh sản phẩm </td><td>Nhà cung cấp</td><td>Số lượng</td><td>Tác vụ</td>";

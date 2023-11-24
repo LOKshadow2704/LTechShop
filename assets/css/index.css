@@ -14,20 +14,14 @@
     flex-wrap: wrap;
 }
 
-.container .subnav{
-    display: flex;
-    padding: 10px 20px;
-}
+
 
 header a , .footer a{
     text-decoration: none  !important;
     color: white !important;
 }
 
-.container> .subnav a{
-    color: #131921;
-    display: flex;
-}
+
 a:hover{
     color: #6b7888 !important;
     text-decoration: none !important;

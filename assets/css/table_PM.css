@@ -1,9 +1,8 @@
 .table_product {
-    border-collapse:collapse;
+    border-collapse:separate;
     margin: 20px 12px;
     text-align: center;
-    font-size: 15px !important;
-    border-radius: 10px;
+    font-size: 13   px !important;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -12,9 +11,13 @@
 }
 
 .table_product thead{
-    background-color: #f0c14b;
     color: black;
     font-weight: 600;
+}
+
+.table_product thead td{
+    background-color: #f0c14b;
+    
 }
 
 .table_product tbody{
@@ -29,6 +32,7 @@
 .table_product tr td:nth-child(1) {
     height: 100px;
     width: 5%;
+    border-radius: 10px 0 0;
 }
 
 .table_product tr td:nth-child(2) {
@@ -57,8 +61,12 @@
 
 .table_product tr td:nth-child(8) {
     width: 10%;
+    border-radius: 0 10px 0 0px;
 }
 
+.table_product tr:last-child td{
+    border: none;
+}
 
 .table_product .act{
     display: flex;
