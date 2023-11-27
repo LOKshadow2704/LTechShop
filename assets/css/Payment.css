@@ -1,0 +1,75 @@
+.wrap_buy p{
+    margin: 0;
+}
+
+.wrap_buy div {
+    margin: 10px 0;
+}
+
+.delivery_address {
+    display: flex;
+    align-items: center;
+}
+
+.delivery_address h4{
+    margin-right: 1%;
+}
+
+
+.table_oderlist img{
+    width: 17%;
+}
+
+
+
+.table_oderlist tr td:nth-child(1) {
+    height: 100px;
+    width: 40%;
+}
+
+.table_oderlist tr td:nth-child(1) p{
+    display: inline-block;
+}
+
+.table_oderlist p{
+    width: 70%;
+}
+
+.Payment {
+    width: 30%;
+    float: right;
+    text-align: left;
+}
+
+.Payment h4{
+    display: inline-block;
+}
+
+.Payment select {
+    width: 90%;
+    font-size: 13px;
+}
+
+.Payment option {
+    padding: 5px;
+}
+
+.Payment label {
+    width: 60%;
+}
+
+.Payment input {
+    width: 30%;
+    background-color: #fff;
+}
+
+.Payment:nth-child(1){
+    margin-top: 0 !important;
+}
+
+
+.Payment button {
+    float: right;
+    margin-right: 40px;
+    width: 30%;
+}

@@ -1,9 +1,9 @@
 <?php
     include_once("./Controller/c_Product.php");
     class viewProductinfo{
-        function viewOneProduct($id){
+        function viewOneProduct(){
             $Product = new controllProduct();
-            $tableProduct = $Product -> getOneProduct($id);
+            $tableProduct = $Product -> getOneProduct();
             if(!$tableProduct){
                 echo("Have some error");
             }elseif($tableProduct==0){
@@ -62,12 +62,12 @@
                            <input type='number' name='amount' id='amount' value='1' class='product-input-amount'>
 
                             <div class='buy-cart'>
-                                <form>
+                                
                                     <a href='#'><button class='button-add__cart add' role='button'>Thêm giỏ hàng</button></a>
-                                </form>
-                                <form>
-                                    <a href='#'><button class='button-add__cart add' role='button'>Mua hàng</button></a> 
-                                </form>
+                                
+                                
+                                    <a href='index.php?buy=".$_REQUEST['pi']."'><button class='button-add__cart add' role='button'>Mua hàng</button></a> 
+                                
                             </div>
                                 </div>
                             </div>

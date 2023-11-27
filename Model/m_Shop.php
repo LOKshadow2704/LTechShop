@@ -21,5 +21,15 @@
             }else
                 return false;
         }
+
+        function selectShop($tk){
+            $connect;
+            $cn_Product = new clsconnect();
+            if($cn_Product->connect($connect)){
+                $table = mysql_query("select * from taikhoan where taikhoan.IDTaiKhoan ='$tk'");
+                return $table;
+            }else
+                return false;
+        }
     }
 ?>

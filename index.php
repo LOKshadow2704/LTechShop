@@ -17,10 +17,12 @@
     <link rel="stylesheet" href="./assets/css/Order.css">
     <link rel="stylesheet" href="./assets/css/shop.css">
     <link rel="stylesheet" href="./assets/css/cart.css">
+    <link rel="stylesheet" href="./assets/css/Payment.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/0bd872d3c5.js" crossorigin="anonymous"></script>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>LTechShop</title>
 </head>
 <body>
@@ -122,6 +124,35 @@
                         header("Refresh: 0; url = index.php");
                     }
                     
+                }elseif(isset($_REQUEST['buy'])){
+                    include("./View/v_buyProduct.php");
+                    $Product = new viewOderpage();
+                    $result =$Product -> Buypage();
+                }elseif(isset($_REQUEST['show'])){
+                    include_once("./View/v_Doanhthu.php");
+                    include_once("./View/v_SalesProduct.php");
+                    echo "<div class='wrap_seller'>";
+                    include_once('./View/v_seller.php');
+                    $cart = new viewSeller();
+                    $table = $cart->leftMenu();
+                    include_once("./View/v_Product.php");
+                    $Product = new viewThongke();
+                    echo "<div class='rightMenu'>";
+                    $Product -> showThongke();
+                    echo "</div>";
+                    echo "</div>";
+                }elseif(isset($_REQUEST['salesproduct'])){
+                    include_once("./View/v_SalesProduct.php");
+                    echo "<div class='wrap_seller'>";
+                    include_once('./View/v_seller.php');
+                    $cart = new viewSeller();
+                    $table = $cart->leftMenu();
+                    include_once("./View/v_Product.php");
+                    $Product = new viewSalesProduct();
+                    echo "<div class='rightMenu'>";
+                    $Product -> showSalesProduct();
+                    echo "</div>";
+                    echo "</div>";
                 }else{
                     //Trang chủ
                     include_once("./View/slideshow.php");

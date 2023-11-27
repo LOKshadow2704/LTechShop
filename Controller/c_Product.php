@@ -20,7 +20,8 @@
             return $tableProduct;
         }
 
-        function getOneProduct($id){
+        function getOneProduct(){
+            $id =$_REQUEST["pi"];
             $Product = new modelProduct();
             $tableProduct = $Product->selectOneProduct($id);
             if(!$tableProduct){
@@ -34,9 +35,17 @@
             }
         }
 
+        function getListProduct(){
+            $_SESSION['buyinf'] =array(array(2,3),array(1,2));
+            $list =array($_SESSION['buyinf'][0][0],$_SESSION['buyinf'][0][1]);
+            $Product = new modelProduct();
+            $tableProduct = $Product->selectListProduct($list);
+            return $tableProduct;
+        }
+
         function addProduct(){
             //Bắt dữ liệu
-            $IdUser = 1;
+            $IdUser =$_SESSION['idLogin'];
             $ProdName = $_REQUEST['TenSP'];
             $ProdPrice = $_REQUEST['DonGia'];
             $file = $_FILES['myFile'];
