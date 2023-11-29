@@ -47,6 +47,8 @@ header .top_header .search{
     right: 35%;
     color: #131921;
     font-size: 22px;
+    top: 20px;
+    display: block;
 }
 
 header .top_right_header{

@@ -42,11 +42,13 @@
 .sp-title {
     color: #fff;
     padding: 4px;
+    margin: 0px;
     text-align: center;
 }
 
 .product-title {
     font-size: 22px;
+    margin-bottom: 0px;
 }
 
 .product-range {
@@ -82,7 +84,6 @@
 }
 
 /* product-price */
-
 .product-discount {
     margin-top: 20px;
     padding: 20px;
@@ -92,15 +93,22 @@
     gap: 6px;
 }
 
+p {
+    margin: 0px;
+}
+
 .product-price {
     font-size: 20px;
     color: rgb(243, 34, 34);
     font-weight: 700;
     font-size: 24px;
+    margin-bottom: 0px;
 }
 
 .product-discount {
     color: #949393;
+    font-weight: 600;
+    font-size: 20px;
 }
 
 .product-description {
@@ -166,18 +174,37 @@ input:focus {
     outline: none;
 }
 
-/* buy-cart */
-button {
-    border: none;
-    background-color: #ee4d2d;
+a {
+    text-decoration: none;
 }
 
+button {
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border: none;
+}
+
+/* buy-cart */
 .buy-cart {
     margin-top: 60px;
     display: flex;
     justify-content: start;
     align-items: center;
     gap: 20px;
+}
+.button-add__cart,
+.product_compare {
+    border-radius: 6px;
+    padding: 6px;
+    color: white;
+}
+.button-add__cart {
+    background-color: #ee4d2d;
+}
+
+.product_compare {
+    background-color: rgb(0, 85, 128);
 }
 
 .buy-cart form a button {
@@ -192,67 +219,153 @@ button {
 }
 
 /* ============================== */
-/* css star */
-.center {
-}
-.center .stars {
-    text-align: center;
-    justify-content: center;
+
+.product_shop {
     display: flex;
-    gap: 12px;
     align-items: center;
+    gap: 6px;
 }
-.stars input {
-    display: none;
+
+/* ĐÁNH GIÁ SẢN PHẨM */
+.product__review {
+    background-color: #fff8f8;
+    width: 100%;
 }
-.stars label {
-    float: right;
-    font-size: 40px;
-    color: lightgrey;
-    margin: 0 5px;
-    text-shadow: 1px 1px #bbb;
+
+.product__review-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
-.stars label:before {
-    content: '★';
+
+.review__star {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
-.stars input:checked ~ label {
-    color: gold;
-    text-shadow: 1px 1px #c60;
+
+.review__star-right {
+    /* text-align: center; */
 }
-.stars:not(:checked) > label:hover,
-.stars:not(:checked) > label:hover ~ label {
-    color: gold;
+
+.review__star {
+    border: 1px solid rgb(255, 239, 239);
+    padding: 24px;
 }
-.stars input:checked > label:hover,
-.stars input:checked > label:hover ~ label {
-    color: gold;
-    text-shadow: 1px 1px goldenrod;
+
+.start-all {
+    display: flex;
+    gap: 6px;
 }
-.stars .result:before {
-    content: '';
-    width: auto;
-    font-size: 18px;
-    margin-top: 10px;
+
+.star-item {
+    padding: 6px;
+    text-align: center;
+    width: 101px;
+    border: 1px solid #efefef;
+    background-color: #ffffff;
+}
+
+.start-all p {
+    font-size: 14px;
+}
+
+.star-top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.star-top p:first-child {
+    color: #ee4d2d;
+    font-size: 34px;
     font-weight: 600;
-    color: rgb(232, 198, 6);
-    font-family: 'Poppins', sans-serif;
-    display: none;
 }
-.stars input:checked ~ .result:before {
-    display: block;
+
+.star-top p:last-child {
+    color: #ee4d2d;
 }
-.stars #five:checked ~ .result:before {
-    content: 'I love it ';
+
+.star-comment {
+    margin-top: 6px;
+    display: flex;
+    gap: 6px;
 }
-.stars #four:checked ~ .result:before {
-    content: 'I like it ';
+
+.star-comment p {
+    font-size: 14px;
 }
-.stars #three:checked ~ .result:before {
-    content: "It's good ";
+
+.comment-item {
+    padding: 6px;
+    text-align: center;
+    width: 200px;
+    background-color: #ffffff;
+    border: 1px solid #efefef;
 }
-.stars #two:checked ~ .result:before {
-    content: "I don't like it ";
+
+.firts {
+    border: 1px solid salmon;
+    background-color: #ffffff;
 }
-.stars #one:checked ~ .result:before {
-    content: 'I hate it ';
+/* ĐÁNH GIÁ SẢN PHẨM */
+
+/* User comment */
+.comment {
+    margin-top: 30px;
+    display: flex;
+    gap: 6px;
 }
+
+.avatar {
+    width: 52px;
+    height: 50px;
+    background-color: #dcd6d4;
+    border-radius: 100px;
+}
+
+.comment-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comment-right p {
+    font-size: 14px;
+}
+
+.user_name {
+    font-size: 14px;
+    margin: 0;
+}
+
+.user_star {
+    margin: 0;
+}
+
+.user_date {
+    font-size: 14px;
+    margin: 0;
+}
+
+.user_info_product {
+    display: flex;
+    font-size: 14px;
+}
+
+.user_info_product p {
+    margin: 0;
+}
+
+.user_info_product p:first-child {
+    color: #949393;
+    margin-right: 6px;
+}
+
+.image_product_review {
+    width: 50px;
+    height: 50px;
+}
+
+/* User comment */

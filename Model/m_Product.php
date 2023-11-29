@@ -38,11 +38,12 @@
             $connect;
             $cn_Product = new clsconnect();
             if($cn_Product->connect($connect)){
-                $table = mysql_query("select * from sanpham where IDSanPham ='$id'");
+                $table = mysql_query("SELECT * FROM sanpham JOIN taikhoan ON sanpham.IDTaiKhoan = taikhoan.IDTaiKhoan LEFT JOIN danhgiasp ON sanpham.IDSanPham = danhgiasp.IDSanPham WHERE sanpham.IDSanPham = '$id';");
                 return $table;
             }else
                 return false;
         }
+
 
         function selectListProduct($list){
             $connect;
@@ -184,6 +185,18 @@
                 }else
                     return false;
             }
+        }
+
+
+        function selectSPsearch($search){
+            $connect;
+            $cn_Product = new clsconnect();
+            if($cn_Product->connect($connect)){
+                $table = mysql_query("SELECT * FROM sanpham  INNER JOIN danhmucsanpham ON sanpham.IDDanhMuc = danhmucsanpham.IDDanhMuc WHERE TenSP LIKE N'%".$search."%' ORDER BY sanpham.IDDanhMuc DESC");
+                $cn_Product->disconnect($connect);
+                return $table;
+            }else
+                return false;
         }
 
 }

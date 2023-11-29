@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="./assets/css/shop.css">
     <link rel="stylesheet" href="./assets/css/cart.css">
     <link rel="stylesheet" href="./assets/css/Payment.css">
+    <link rel="stylesheet" href="./assets/css/pro_search.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -75,8 +76,11 @@
                 }elseif(isset($_REQUEST['pi'])){
                     //Xem chi tiết sản phẩm
                     include("./View/Product_info.php");
+                    include("./View/v_Product.php");
                     $Product = new viewProductinfo();
                     $Product -> viewOneProduct($_REQUEST["pi"]);
+                    $suggestProduct = new ViewProduct();
+                    $product = $suggestProduct->viewSuggestProduct();
                 }elseif (isset($_REQUEST["login"])) {
                     //Đăng nhập
                     include_once "./View/v_Login.php";
@@ -153,6 +157,11 @@
                     $Product -> showSalesProduct();
                     echo "</div>";
                     echo "</div>";
+                }elseif(isset($_REQUEST['txtsearch'])){
+                    //tìm kiếm
+                    include("./View/v_Product.php");
+                    $Product = new viewProduct();
+                    $Product -> viewAllSPbySearch($_REQUEST["txtsearch"]);
                 }else{
                     //Trang chủ
                     include_once("./View/slideshow.php");

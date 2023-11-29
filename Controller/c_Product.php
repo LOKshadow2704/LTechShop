@@ -79,5 +79,11 @@
         $result = $pro->updateProduct($idProd,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdDescribe);
         return $result;        
 }
+
+    function getSPsearch($search){
+        $Product = new modelProduct();
+        $tableProduct = $Product->selectSPsearch($search);
+        return $tableProduct;
+    }
 }
 ?>

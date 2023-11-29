@@ -9,8 +9,10 @@
                     </a>
                 </div>
                 <div class='search'>
-                    <input type='text' placeholder='Tìm kiếm'>
+                    <form action='index.php' method='GET' class='search'>
+                    <input type='text' name='txtsearch' placeholder='Tìm kiếm'>
                     <i class='fa-solid fa-magnifying-glass'></i>
+                </form>
                 </div>
                 <div class='top_right_header'>
                     <div class='account'>
