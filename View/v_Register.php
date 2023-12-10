@@ -1,6 +1,8 @@
 <?php
-class viewRegister{
-    function showRegisterPage(){
+class viewRegister
+{
+    public function showRegisterPage()
+    {
         if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == true) {
             header("Location: index.php?login");
             exit();
@@ -9,8 +11,8 @@ class viewRegister{
             $auth = new controllerAuth();
             $auth->register();
         }
-        echo 
-        '    
+        echo
+            '
         <div class="login-container">
             <h1>Đăng kí tài khoản</h1>
             <?php if (isset($login_error)): ?>
@@ -18,14 +20,14 @@ class viewRegister{
                 <?php echo $login_error; ?>
             </p>
             <?php endif;?>
-            <form action="" method="post">
+            <form action="" method="post" onsubmit="return validateForm()">
                 <div class="form-group">
                     <label for="name">Tên</label>
                     <input type="text" id="name" name="name">
                 </div>
                 <div class="form-group">
                     <label for="phone">Điện thoại</label>
-                    <input type="text" id="phone" name="phone">
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}">
                 </div>
                 <div class="form-group">
                     <label for="address">Địa chỉ</label>
@@ -54,10 +56,32 @@ class viewRegister{
                     </div>
             </form>
         </div>';
+        echo
+            '<script>
+        function validateForm() {
+            var password = document.getElementById("password").value;
+            var phone = document.getElementById("phone").value;
+            var rePassword = document.getElementById("rePassword").value;
+
+            if (phone.length < 10) {
+                alert("Số điện thoại phải có ít nhất 10 số.");
+                return false;
+            }
+
+            if (password.length < 6) {
+                alert("Mật khẩu phải có ít nhất 6 ký tự.");
+                return false;
+            }
+
+            if (password != rePassword) {
+                alert("Mật này xác nhập không khớp.");
+                return false;
+            }
+
+            return true;
+        }
+        </script>';
+
     }
 
-
 }
-?>
-
-
