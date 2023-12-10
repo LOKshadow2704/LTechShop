@@ -5,13 +5,13 @@
             <div class='top_header'>
                 <div class='logo'>
                     <a href='index.php'>
-                    <img src='https://drive.google.com/uc?id=1aUYwPUSM7I2EwjLx_XuUB75XkRmrWF2t' alt='' width='70%' height='100%'>
+                    <img src='https://drive.google.com/uc?id=1vyQx2ZQa5S5JWZeL-1TJF2mynjPmJAmS' alt='' width='70%' height='100%'>
                     </a>
                 </div>
                 <div class='search'>
                     <form action='index.php' method='GET' class='search'>
                     <input type='text' name='txtsearch' placeholder='Tìm kiếm'>
-                    <i class='fa-solid fa-magnifying-glass'></i>
+                    <button type='submit'><i class='fa-solid fa-magnifying-glass'></i></button>
                 </form>
                 </div>
                 <div class='top_right_header'>
@@ -53,7 +53,3 @@
         </header>";
         }
     }
-    //<li> <a href='index.php?MP=1'>Quản lý sản phẩm của bạn</li></a>
-    //<li> <a href='index.php?MPO=1'>Đơn bán</li></a>
-   
-?>

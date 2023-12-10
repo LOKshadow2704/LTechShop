@@ -51,8 +51,8 @@
 }
 
 .logo-container img {
-    max-width: 25px; /* Điều chỉnh kích thước tối đa chiều rộng của logo */
-    height: auto; /* Giữ tỷ lệ khung hình */
+    max-width: 100px; /* Điều chỉnh kích thước tối đa chiều rộng của logo */
+    height: 50px; /* Giữ tỷ lệ khung hình */
     margin: 5px; /* Tạo khoảng cách giữa các logo */
 }
 

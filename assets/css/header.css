@@ -42,13 +42,20 @@ header .top_header .search{
     font-size: 15px;
 }
 .search i{
-    position: absolute;
     height: 23px;
-    right: 35%;
     color: #131921;
     font-size: 22px;
     top: 20px;
     display: block;
+}
+
+.search form {
+    width: 100% !important;
+}
+
+.search button{
+    position: absolute;
+    right: 35%;
 }
 
 header .top_right_header{

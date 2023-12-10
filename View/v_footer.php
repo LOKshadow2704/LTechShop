@@ -4,18 +4,11 @@ echo "
             <div class='footer-container'>
                 <div class='footer-column'>
                     <h3>Thông tin liên hệ</h3>
-                    <div style='padding-bottom: 10px'>
-                        <a href='https://www.dmca.com/Protection/Status.aspx?ID=0cfdeac4-6e7f-4fca-941f-57a0a0962777&refurl=https://ivymoda.com/' target='_blank' style='padding-right:20px'>
-                            <img src='img/logo-footer1.jpg' alt='Logo Liên Kết 1'>
-                        </a>
-                        <a href='http://online.gov.vn/Home/WebDetails/36596?AspxAutoDetectCookieSupport=1' target='_blank'>
-                            <img src='img/logo-footer2.jpg' alt='Logo Liên Kết 1'>
-                        </a>    
-                    </div>
-                    <p>Nhóm: TH2N4</p>
+                    
+                    <p>Nhóm: Legend</p>
                     <p>Địa chỉ: 12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh</p>
-                    <p>Email: th2n4@gmail.com</p>
-                    <p>Điện thoại: 0387.985.987</p>
+                    <p>Email: LegendTechShop@gmail.com</p>
+                    <p>Điện thoại: 0328058832</p>
                 </div>
 
                 <div class='footer-column'>
@@ -45,19 +38,8 @@ echo "
                     <!-- Chèn logo liên kết -->
                     <div class='logo-container'>
                         <a href='#' target='_blank'>
-                            <img src='img/Facebook_Logo_(2019).png' alt='Logo Liên Kết 1'>
+                            <img src='https://drive.google.com/uc?id=17wh_WzgvYkGKB-cBfrwNnOA4wJM1j-yY' alt='VNpay' width='100px' height='50px'>
                         </a>
-                        <a href='link-to-your-page2' target='_blank'>
-                            <img src='img/Instagram_logo_2016.svg.png' alt='Logo Liên Kết 2'>
-                        </a>
-
-                        <a href='link-to-your-page2' target='_blank'>
-                            <img src='img/LinkedIn_icon_circle.svg.png' alt='Logo Liên Kết 2'>
-                        </a>
-                        <a href='link-to-your-page2' target='_blank'>
-                            <img src='img/logo-black.png.twimg.1920.png' alt='Logo Liên Kết 2'>
-                        </a>
-                        <!-- Thêm nhiều logo khác nếu cần -->
                     </div>
                 </div>
             </div>

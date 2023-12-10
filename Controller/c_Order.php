@@ -29,5 +29,15 @@
                 }
             }
     }
+
+    function updateOrder(){
+        $Order = new modelOrder();
+        foreach($_SESSION['idOrder'] as $value){
+            $result = $Order->updateOrder($value);  
+        }
+        unset($_SESSION['idOrder']);
+        return $result;
+}
+    
 }
 ?>

@@ -23,10 +23,31 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/0bd872d3c5.js" crossorigin="anonymous"></script>
+    
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>LTechShop</title>
 </head>
 <body>
+<script type='text/javascript'>
+                            function update_quantity(new_quantity,product_id,price){
+                                $.ajax({
+                                    type: "POST",
+                                    url: "./Model/update_cart.php",
+                                    dataType: 'json',
+                                    data: {
+                                        product_id: product_id,
+                                        new_quantity: new_quantity,
+                                        price: price
+                                        
+                                    },
+                                    success: function(response) {
+                                        // Cập nhật tổng tiền trên giao diện
+                                        $('.total_amount.'+product_id).text(response.new_total);
+                                    },
+                                    error: function (error) {console.error('Error:', error)},
+                                })
+                            }
+                    </script>
     <div id="root">
         <?php
             session_start();
@@ -102,7 +123,7 @@
                     include_once('./Controller/c_Product.php');
                     $product = new controllProduct();
                     $act = $product->deleteProduct();
-                    echo "<script>alert('Xóa thành công')</script>";
+                    echo "<script>alert('Xóa thành công')</>";
                     header("Refresh: 0; url = index.php?MP=1");
                 }elseif(isset($_REQUEST['idshop'])){
                     include("./View/v_Shop.php");
@@ -128,7 +149,7 @@
                         header("Refresh: 0; url = index.php");
                     }
                     
-                }elseif(isset($_REQUEST['buy'])){
+                }elseif(isset($_REQUEST['quan_prod'])){
                     include("./View/v_buyProduct.php");
                     $Product = new viewOderpage();
                     $result =$Product -> Buypage();
@@ -162,6 +183,34 @@
                     include("./View/v_Product.php");
                     $Product = new viewProduct();
                     $Product -> viewAllSPbySearch($_REQUEST["txtsearch"]);
+                }elseif(isset($_REQUEST['delete_cartitem'])){
+                    // Xóa sản phẩm giỏ hàng
+                    include("./Controller/c_cart.php");
+                    $cart = new controllerCart();
+                    $result= $cart -> deleteCartItem();
+                    if($result){
+                        echo "<script>alert('Xóa thành công');  history.back();</script>";
+                    }
+                }elseif(isset($_REQUEST['addtocart'])){
+                    // Thêm sản phẩm giỏ hàng
+                    include("./Controller/c_cart.php");
+                    $cart = new controllerCart();
+                    $result=$cart -> addCartItem();
+                    if($result){
+                        // header("Location: index.php.php?pi=".$_REQUEST['addtocart']);
+                        echo "<script>alert('Đã thêm sản phẩm vào giỏ hàng');  history.back();</script>";
+                    }
+                }elseif(isset($_REQUEST['succes'])){
+                    include("./Controller/c_Order.php");
+                    $cart = new controllOrder();
+                    $result=$cart -> updateOrder();
+                    echo "<script>alert('Đặt hàng thành công'); window.location.replace('http://localhost:81/LTechShop/index.php');</script>";
+                    
+                }elseif(isset($_REQUEST['succes_cod'])){
+                    echo "<script>alert('Đặt hàng thành công'); window.location.replace('http://localhost:81/LTechShop/index.php');</script>";
+                }elseif(isset($_REQUEST['buynow'])){
+                    include("./Model/Buy_now.php");
+                    
                 }else{
                     //Trang chủ
                     include_once("./View/slideshow.php");
@@ -179,4 +228,5 @@
         ?>
     </div>
 </body>
+
 </html>

@@ -20,8 +20,11 @@
             return $tableProduct;
         }
 
-        function getOneProduct(){
+        function getOneProduct($idprod){
             $id =$_REQUEST["pi"];
+            if($id==""){
+                $id=$idprod;
+            }
             $Product = new modelProduct();
             $tableProduct = $Product->selectOneProduct($id);
             if(!$tableProduct){
@@ -36,8 +39,7 @@
         }
 
         function getListProduct(){
-            $_SESSION['buyinf'] =array(array(2,3),array(1,2));
-            $list =array($_SESSION['buyinf'][0][0],$_SESSION['buyinf'][0][1]);
+            $list = $dataArray['oder_prod'];
             $Product = new modelProduct();
             $tableProduct = $Product->selectListProduct($list);
             return $tableProduct;

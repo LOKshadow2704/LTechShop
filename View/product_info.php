@@ -1,4 +1,3 @@
-
 <?php
     include_once("./Controller/c_Product.php");
     class viewProductinfo{
@@ -33,37 +32,46 @@
 
                                 <div class='product-range'>
                                     <div class='product-range-star'>
-                                        <p class='range'>4.7</p>
-                                        <p class='star'>⭐⭐⭐⭐⭐</p>
+                                        <p class='range'>".$row["TrungBinhSoSao"]."</p>
+                                        <ul class='list-inline'>";          
+                                                $TrungBinhSoSao = 1;
+                                                while ($TrungBinhSoSao <= 5) {
+                                                    if ($row["TrungBinhSoSao"] < $TrungBinhSoSao) {
+                                                        echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star-empty' style='color: #FFFF00;'></span></li>";
+                                                    } else {
+                                                        echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star' style='color: #FFFF00;'></span></li>";
+                                                    }
+                                                    $TrungBinhSoSao++;
+                                                }
+                                            echo "</ul>
                                     </div>
-
                                     <div class='product-range-reviews'>
-                                        <p>3,1k</p>
+                                        <p>".$row["TongSoDanhGia"]."</p>
                                         <p style='color: rgb(160, 160, 160);'>Đánh giá</p>
                                     </div>
                                 
                                     <div class='product-range-bought'>
-                                        <p>43k</p>
+                                        <p>".$row['IDDonHang']."</p>
                                         <p style='color: rgb(160, 160, 160);'>Đã bán</p>
                                     </div>
                                 </div>
 
                                 <div class='product-discount'>
-                                    <p class='product-price'>".number_format($row["DonGia"],0 , ",",".")." VNĐ</p>
-                                    <del class='price-discount'>9.640.000 VNĐ</del>
+                                    <p class='product-price'>".number_format($row["DonGia"]-$row["PhanTramGiamGia"]*$row["DonGia"],0, ",",".")." VNĐ</p>
+                                    <del class='price-discount'>".number_format($row["DonGia"],0 , ",",".")." VNĐ</del>
                                 </div>
 
                                 <div>
                                 <div class='product-quantity'>
                                 <p style='font-size: 14px; color: rgb(163, 163, 163)'>Số lượng</p>
-                                <p style='font-size: 14px; color: rgb(163, 163, 163)'>2542 sản phẩm có sẵn</p>
+                                <p style='font-size: 14px; color: rgb(163, 163, 163)'>".$row["SoLuongSanPham"]."</p>
                            </div>
 
                            <input type='number' name='amount' id='amount' value='1' class='product-input-amount'>
                         
                             <div class='buy-cart'>
-                                <a href='index.php?buy=$id'><button class='button-add__cart add' role='button'>Thêm giỏ hàng</button></a>
-                                <a href='index.php?buy=$id'><button class='button-add__cart add' role='button'>Mua hàng</button></a> 
+                                <a href='index.php?addtocart=$id'><button class='button-add__cart add' role='button'>Thêm giỏ hàng</button></a>
+                                <a href='index.php?buynow=$id'><button class='button-add__cart add' role='button'>Mua hàng</button></a> 
                                 <button type='button' class='product_compare' data-toggle='modal' data-target='#myModal' onclick='add_compare($id)'>So sánh</button>
 
                                  </div>
@@ -109,13 +117,7 @@
                     </div>
                 </div>
                     ";
-                    // mô tả sp
-                    echo "<br><br>";
-                    echo "<h2 class='product-description'>Mô tả sản phẩm</h2>";
-                    echo "<br> <p class='product-description1' style='color: black''text-align: right' ><b>".$row["Mota"]."</b></p>";  
-                    echo "<br><br>";
-                    
-                    //sản phẩm của shop
+                     //sản phẩm của shop
                     echo "<br><br>";
                     echo "
                         <div class='product_shop'>
@@ -123,6 +125,11 @@
                             <h3 style='color: black''text-align: right'><b>".$row["TenDangNhap"]."</b></h3>
                         </div>
                     ";
+                    // mô tả sp
+                    echo "<br><br>";
+                    echo "<h2 class='product-description'>Mô tả sản phẩm</h2>";
+                    echo "<br> <p class='product-description1' style='color: black''text-align: right' ><b>".$row["Mota"]."</b></p>";  
+                    echo "<br><br>";
                      // Đánh giá product
                      echo "
                      <h2 class='product__review-title'>ĐÁNH GIÁ SẢN PHẨM</h2>
@@ -158,15 +165,26 @@
                      ";
  
                      // User Comment
-                     echo "
+                                    
+                   echo "
                          <div class='comment'>
                              <div class='comment-left'>
                                  <p class='avatar'></p>
                              </div>
- 
+
                              <div class='comment-right'>
-                                 <p class='user_name'>huongquan2018</p>
-                                 <p class='user_star'>⭐⭐⭐⭐⭐</p>
+                                 <p class='user_name'>".$row["TenDangNhap"]."</p>
+                                 <ul class='list-inline'>";          
+                                    $SoSao = 1;
+                                    while ($SoSao <= 5) {
+                                        if ($row["SoSao"] < $SoSao) {
+                                            echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star-empty' style='color: yellow ;'></span></li>";
+                                        } else {
+                                            echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star' style='color: yellow;'></span></li>";
+                                        }
+                                        $SoSao++;
+                                    }
+                                 echo "</ul>
                                  <p class='user_date'>2023-11-08 15:10</p>
  
                                  <div class='user_info_product'>
@@ -181,7 +199,7 @@
                                      <p>Chất liệu:</p>
                                      <p>tốt</p>
                                  </div>
-                                 <p>Hàng đẹp, shop gói hàng cẩn thận. Sẻ ủng hộ shop lần sau.  Thanks</p>
+                                 <p>".$row["PhanHoi"]."</p>
                              
                                  <div class='image_product'>
                                      <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/vn-11134211-7r98o-lklx7c4ruumof2' alt='Girl in a jacket'>
@@ -198,8 +216,18 @@
                              </div>
  
                              <div class='comment-right'>
-                                 <p class='user_name'>quynhnguyenanh1607</p>
-                                 <p class='user_star'>⭐⭐⭐⭐⭐</p>
+                                 <p class='user_name'>".$row["HoTen"]."</p>
+                                 <ul class='list-inline'>";          
+                                    $SoSao = 1;
+                                    while ($SoSao <= 5) {
+                                        if ($row["SoSao"] < $SoSao) {
+                                            echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star-empty' style='color: yellow;'></span></li>";
+                                        } else {
+                                            echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star' style='color: yellow;'></span></li>";
+                                        }
+                                        $SoSao++;
+                                    }
+                                echo "</ul>
                                  <p class='user_date'>2021-10-27 11:08</p>
  
                                  <div class='user_info_product'>
@@ -214,7 +242,7 @@
                                      <p>Chất liệu:</p>
                                      <p>tốt</p>
                                  </div>
-                                 <p>Á, nói chung là trông cx đẹp, dày dặn, chọn màu phù hợp với pc là đc nhá</p>
+                                 <p>".$row["PhanHoi"]."</p>
                              
                                  <div class='image_product'>
                                      <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lmnhims8mpcvb1' alt='Girl in a jacket'>
@@ -225,15 +253,24 @@
                              </div>
                          </div>
 
- 
                          <div class='comment'>
                              <div class='comment-left'>
                                  <p class='avatar'></p>
                              </div>
  
                              <div class='comment-right'>
-                                 <p class='user_name'>huongquan2018</p>
-                                 <p class='user_star'>⭐⭐⭐⭐⭐</p>
+                                 <p class='user_name'>".$row["HoTen"]."</p>
+                                 <ul class='list-inline'>";          
+                                    $SoSao = 1;
+                                    while ($SoSao <= 5) {
+                                        if ($row["SoSao"] < $SoSao) {
+                                            echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star-empty' style='color: yellow;'></span></li>";
+                                        } else {
+                                            echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star' style='color: yellow;'></span></li>";
+                                        }
+                                        $SoSao++;
+                                    }
+                                    echo "</ul>
                                  <p class='user_date'>2023-11-08 15:10</p>
  
                                  <div class='user_info_product'>
@@ -248,9 +285,7 @@
                                      <p>Chất liệu:</p>
                                      <p>tốt</p>
                                  </div>
-                                 <p>Hàng rẻ mà xài ổn đó ae 
-                                 Đã đặt hàng lần 2 và sẽ ủng hộ shop thêm 
-                                 Thank shop</p>
+                                 <p>".$row["PhanHoi"]."</p>
                              
                                  <div class='image_product'>
                                      <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/64d0a80d60192db2267febb126dbad0e' alt='Girl in a jacket'>
@@ -261,18 +296,20 @@
                              </div>                          
                          </div>
                      ";
-                     
                     $count++;
-                    if($count % 4 == 0 ) {
+                    if ($count % 4 == 0) {
                         echo "</ul>";
                         $count = 0;
+                    } elseif ($count == 1) {
+                        break;
                     }
+                
                 }
                 echo"</div>";
                 }
             }
-            
         }
+        
 ?>
 <!DOCTYPE html>
 <html lang="en">

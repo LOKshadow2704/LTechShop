@@ -1,60 +1,60 @@
 <?php
-include_once("./Controller/c_cart.php");
 class viewCart{
     function Cart(){
-        $Cart = new controllerCart();
-        $table = $Cart-> getCart();
-        if(!$table){
-            echo "ERROR";
-        } else {
-            // Kiểm tra dữ liệu nhận được từ giỏ hàng:
-            // Nếu không có dữ liệu ($table là falsy), in ra "ERROR".
-            // Nếu có dữ liệu nhưng không có hàng hóa nào trong giỏ (mysql_num_rows($table)==0), in ra "0 result".
-            // Nếu có dữ liệu và có hàng hóa trong giỏ, hiển thị một bảng chứa thông tin về từng sản phẩm trong giỏ.
-            $count=0;
-            echo "<a href=''><button class='button-68 cart' role='button'>Giỏ hàng</button></a>";
-            echo "<br><br>";
+            include_once('./Controller/c_cart.php');
+            $product = new controllerCart();
+            $result_cart = $product->getCart();
 
-            if(mysql_num_rows($table) > 0){
-                echo "<table class='table_cart'>";
-                echo "<thead>";
-                echo"<tr>";      
-                       echo "<td>STT</td>";
-                       echo "<td>Sản phẩm</td>";
-                       echo "<td>Số lượng</td>";
-                       echo "<td>Tên sản phẩm</td>";
-                       echo "<td>Giá</td>";
-                       echo "<td>Giá tổng</td>";
-                       echo "<td>Quản lý</td>";
-                echo"</tr>";
-                echo "</thead>";
-                echo "<tbody>";
+            include_once('./Controller/c_Shop.php');
+            $shop = new controllShop();
+            $result_shop = $shop->getShop($_SESSION['idLogin']);
+            if(!$result_cart || !$result_shop){
+                echo "ERROR";
+            }elseif(mysql_num_rows($result_cart)==0){
+                echo "Sản phẩm không tồn tại hoặc không đủ số lượng";
+            }elseif(mysql_num_rows($result_shop)==0){
+                echo "Vui lòng đăng nhập";
+            }else{
 
-                while($row = mysql_fetch_assoc($table)){
-                    $count++;
-                    $tong = $row['SoLuong']*$row['DonGia'];
-                    echo "<tr>";
-                        echo "<td style='width: 20px'><input type='checkbox' name='selectedProducts[]' value='".$row['IDSanPham']."'></td>";
-                        echo "<td>'<img width=240px height=200px src=".$row['HinhAnhSP'].">'</td>";
-                        echo "<td>".$row['SoLuong']."</td>";
-                        echo "<td>".$row['TenSP']."</td>";
-                        echo "<td>".number_format($row["DonGia"],0 , ",",".")."VNĐ</td>";
-                        echo "<td>".number_format($tong,0 , ",",".")."VNĐ</td>";
-                        echo "<td> <div class='act'>
-                        <a href='index.php?delete_cart_item=".$row['IDSanPham']."' onclick='return confirm(\""."Bạn có chắc chắn muốn xóa sản phẩm ".$row['TenSP']." ?"."\");'>
-                        <button class='button-68 cart' role='button'>Xóa</button></a>
-                        </div> </td>";
-                    echo"</tr>";
-                }
-
-                echo "</tbody>";
-                echo "</table>";
-                // echo " <button class='button-68 total' onclick='addToCart()'>Thêm vào giỏ hàng</button>";
-                echo" <a href='".$table['ProdID']."'><button class='button-68 total' role='button'>Thanh toán</button></a>";
-            } else {
-                echo "Giỏ hàng của bạn đang trống.";
-            }
+                echo "
+                    <div class='wrap_buy'>
+                        <div class='cart'>
+                            <h4>Giỏ hàng của bạn</h4>
+                        </div>";
+                        echo "<form class='form-cart'  method='GET' action='#'>";
+                        echo "<table class='table_oderlist  table '>";
+                        echo "<thead class='thead-dark'>";
+                        echo "<tr>";
+                        echo "<th scope='col'>Sản phẩm</th><th scope='col'>Loại sản phẩm</th><th scope='col'>Đơn giá </th><th scope='col'>Hãng sản xuất</th><th scope='col'>Số lượng</th><th scope='col'>Thành tiền</th>";
+                        echo "</tr>";
+                        echo "</thead>";
+                        echo "<tbody>";
+                        $newquan;
+                        $prevIDShop = 0;
+                        while($row_prod = mysql_fetch_assoc($result_cart)){
+                            $thanhtien = 0;
+                            if($prevIDShop!= $row_prod['Shop']){
+                                echo "<tr>";
+                                echo "<td><a href='index.php?idshop=".$row_prod['Shop']."'><h2 style ='font-size:18px; text-align:left;'>Cửa hàng:".$row_prod['HoTen']."</h2></a></td><td></td><td></td><td></td><td></td><td></td><td></td>";
+                                echo "</td>";
+                            }
+                            echo "<tr>";
+                            echo "<td><input type='checkbox'  name='oder_prod[]' value='".$row_prod['IDSanPham']."'><img src='".$row_prod['HinhAnhSP']."' ><p>".$row_prod['TenSP']."</p></td><td>".$row_prod['TenDanhMuc']."</td><td>".number_format($row_prod["DonGia"],0 , ",",".")."</td><td>".$row_prod['NCC']."</td>
+                                <td><input type='number' min='1' id='quantity' oninput='update_quantity(this.value,".$row_prod['IDSanPham'].",".$row_prod['DonGia'].")' name='quan_prod[]' value='".$row_prod['SoLuong']."'>
+                                </td>
+                            <td class='total_amount ".$row_prod['IDSanPham']."'>"; echo(number_format($thanhtien+=$row_prod["DonGia"]*1,0 , ",","."))."</td>";
+                            echo "<td><a href='index.php?delete_cartitem=".$row_prod['IDSanPham']."'><i class='fa-solid fa-xmark'></i></a></td>";
+                            echo "</tr>";
+                            $prevIDShop= $row_prod['Shop'];
+                        }
+                        echo "</tbody>";
+                        echo "</table>";
+                        echo  " <button type='submit'  name='goBuy' class='btn btn-danger'>Đặt hàng</button>
+                        </form>";       
+                echo "</div>
+                ";
         }
+
     }
 }
 ?>

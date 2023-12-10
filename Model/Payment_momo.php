@@ -1,14 +1,14 @@
 <?php
-if(isset($_REQUEST['Buy'])){
+session_start();
     $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    $vnp_Returnurl = "http://localhost:81/LTechShop/index.php?buy=89";
+    $vnp_Returnurl = "http://localhost:81/LTechShop/index.php?succes";
     $vnp_TmnCode = "KMZ0XB1R";//Mã website tại VNPAY 
     $vnp_HashSecret = "TALPOXXNXPJYNOGRZMWFZGAWWZUGOFRX"; //Chuỗi bí mật
     
     $vnp_TxnRef = rand(00,99999); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
     $vnp_OrderInfo = "Thanh toán đơn hàng tại LTechShop";
     $vnp_OrderType = "billpayment";
-    $vnp_Amount = $_REQUEST['total_money'] * 100;
+    $vnp_Amount = $_SESSION['total_money'] * 100;
     $vnp_Locale = "vn";
     $vnp_BankCode = "NCB";
     $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
@@ -97,5 +97,5 @@ if(isset($_REQUEST['Buy'])){
         , 'data' => $vnp_Url);
         header("Location: $vnp_Url");
         // vui lòng tham khảo thêm tại code demo
-}
+
 ?>
