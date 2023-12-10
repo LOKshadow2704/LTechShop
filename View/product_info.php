@@ -70,8 +70,8 @@
                            <input type='number' name='amount' id='amount' value='1' class='product-input-amount'>
                         
                             <div class='buy-cart'>
-                                <a href='index.php?addtocart=$id'><button class='button-add__cart add' role='button'>Thêm giỏ hàng</button></a>
-                                <a href='index.php?buynow=$id'><button class='button-add__cart add' role='button'>Mua hàng</button></a> 
+                                <a href='index.php?buy=$id'><button class='button-add__cart add' role='button'>Thêm giỏ hàng</button></a>
+                                <a href='index.php?buy=$id'><button class='button-add__cart add' role='button'>Mua hàng</button></a> 
                                 <button type='button' class='product_compare' data-toggle='modal' data-target='#myModal' onclick='add_compare($id)'>So sánh</button>
 
                                  </div>

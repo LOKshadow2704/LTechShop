@@ -35,7 +35,7 @@
             </head> 
 
             <body> 
-                <div style="width: 80%; margin: auto;"> 
+                <div style="width: 90%; "> 
                     <canvas id="barChart"></canvas> 
                 </div> 
 
