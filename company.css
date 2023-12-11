@@ -1,0 +1,17 @@
+.company{
+    /* background-color: black; */
+    text-align: left;
+    width: 240px;
+    height: auto;
+}
+.company a{
+    color: black;
+   font-size: 15px;
+   
+}
+.company a:hover{
+    background-color: #f0c14b;
+    color: #fff;
+    
+}
+
