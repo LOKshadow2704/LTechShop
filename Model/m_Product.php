@@ -27,7 +27,7 @@
             $connect;
             $cn_Product = new clsconnect();
             if($cn_Product->connect($connect)){
-                $table = mysql_query("select p.IDSanPham,d.TenDanhMuc,p.TenSP, p.DonGia, p.NCC, p.HinhAnhSP,p.MoTa from SanPham as p left join DanhMucSanPham as d on p.IDDanhMuc = d.IDDanhMuc where IDTaiKhoan =".$userid);
+                $table = mysql_query("select p.IDSanPham,d.TenDanhMuc,p.TenSP, p.DonGia, p.NCC,p.SoLuong, p.HinhAnhSP,p.MoTa from SanPham as p left join DanhMucSanPham as d on p.IDDanhMuc = d.IDDanhMuc where IDTaiKhoan =".$userid);
                 $cn_Product->disconnect($connect);
                 return $table;
             }else
@@ -38,13 +38,24 @@
             $connect;
             $cn_Product = new clsconnect();
             if($cn_Product->connect($connect)){
-                $table = mysql_query("select * from sanpham where IDSanPham ='$id'");
+                $table = mysql_query("SELECT * FROM sanpham JOIN taikhoan ON sanpham.IDTaiKhoan = taikhoan.IDTaiKhoan LEFT JOIN danhgiasp ON sanpham.IDSanPham = danhgiasp.IDSanPham WHERE sanpham.IDSanPham = '$id';");
                 return $table;
             }else
                 return false;
         }
 
-        function insertProduct($IdUser,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdDescribe){
+
+        function selectListProduct($list){
+            $connect;
+            $cn_Product = new clsconnect();
+            if($cn_Product->connect($connect)){
+                $table = mysql_query("select p.IDSanPham,d.TenDanhMuc,p.TenSP, p.DonGia, p.NCC,p.SoLuong, p.HinhAnhSP,p.MoTa from SanPham as p left join DanhMucSanPham as d on p.IDDanhMuc = d.IDDanhMuc where IDSanPham in ($list[0], ".end($list).") ");
+                return $table;
+            }else
+                return false;
+        }
+
+        function insertProduct($IdUser,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdQuan,$ProdDescribe){
             // Client ID of Imgur App 
             $IMGUR_CLIENT_ID = '0a20a75ba1cc56c'; // Thay YOUR_CLIENT_ID bằng client ID của bạn
                 $fileType = $file['type'];
@@ -94,7 +105,7 @@
             $connect;
             $cn_Product = new clsconnect();
             if($cn_Product->connect($connect)){
-                $result = mysql_query("insert into sanpham(IDTaiKhoan,IDDanhMuc,TenSP,DonGia,NCC,HinhAnhSP,Mota) values($IdUser,$ProdCategory,'$ProdName',$ProdPrice,'$ProdSupp','$imgurLink','$ProdDescribe')");
+                $result = mysql_query("insert into sanpham(IDTaiKhoan,IDDanhMuc,TenSP,DonGia,NCC,HinhAnhSP,SoLuong,Mota) values($IdUser,$ProdCategory,'$ProdName',$ProdPrice,'$ProdSupp','$imgurLink',$ProdQuan,'$ProdDescribe')");
                 return array($result,$status);
             }else
                 return false;
@@ -176,5 +187,28 @@
             }
         }
 
+
+        function selectSPsearch($search){
+            $connect;
+            $cn_Product = new clsconnect();
+            if($cn_Product->connect($connect)){
+                $table = mysql_query("SELECT * FROM sanpham  INNER JOIN danhmucsanpham ON sanpham.IDDanhMuc = danhmucsanpham.IDDanhMuc WHERE TenSP LIKE N'%".$search."%' ORDER BY sanpham.IDDanhMuc DESC");
+                $cn_Product->disconnect($connect);
+                return $table;
+            }else
+                return false;
+        }
+
+        function selectAllTimKiemGia($giamin, $giamax){
+            $connect;
+            $p = new clsconnect();
+            if($p->connect($connect)){
+                $table = mysql_query("select * from sanpham where DonGia between $giamin and $giamax order by DonGia ASC");
+                $p->disconnect($connect);
+                return $table;
+            }else{
+                return false;
+            }
+        }
 }
 ?>
