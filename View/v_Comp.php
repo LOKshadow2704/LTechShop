@@ -12,7 +12,7 @@
                     echo "<a href='index.php?Comp=".$r["IDDanhMuc"]."'>".$r["TenDanhMuc"]."</a><br><br>";
                 }
             }else{
-                echo "0 result";
+                echo "không có sản phẩm";
                 }echo"</div>";
         }else{
             echo "Không có giá trị";
@@ -26,13 +26,13 @@
                 $count = 0;
                 echo"<div class='price'>";
                 echo"<h3 >Tìm theo giá</h3>";
-                echo"<form class='form-inline'>";
+                echo"<form class='form-inline' onsubmit='return validateForm()'>";
                     // echo"<label for='giamin'>Từ giá:</label>";
                     echo"<input type='number' class='form-control' id='min_price'  name='giamin'>";
                     
                     // echo"<label for='giamax'>Đến giá:</label>";
                     echo"<input type='number' class='form-control' id='max_price'  name='giamax'>";
-                    echo"<button type='submit' class='btn btn-default'>Tìm</button>";
+                    echo"<button type='submit' class='btn btn-default' >Tìm</button>";
                 echo"</form>";
                 echo"</div>";
                 echo "<div class='pro_search'>";
@@ -46,7 +46,7 @@
                     echo "<br> <p style='color: black'><b>".$row["TenSP"]."</b></p>";  
                     echo "<br><br>";
                     echo  "<p style= 'color: red'>".number_format($row["DonGia"],0 , ",",".")." VNĐ</p>";
-                    echo "<br><br> <a href='product_info.php'></li>";
+                    echo "<br><br> </a></li>";
                     $count++;
                     if($count % 4 == 0 ) {
                         echo "</ul>";
@@ -55,7 +55,7 @@
                 }
                 echo"</div>";
             } else {
-                echo "o result";
+                echo "không có sản phẩm";
             }
         }
     }

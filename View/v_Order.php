@@ -134,7 +134,7 @@
         }
 // Đã thêm chi tiết sản phẩm 
         function viewOrderDetail($idorder){
-            $Order = new controllOrder();
+            $Order = new controllOrder();   
             $table = $Order-> getOrderDetail($idorder);
             if(!$table){
                 echo "ERROR";
@@ -144,58 +144,59 @@
                 $count=0;
                 echo "<h1 style= 'font-size: 200%'>Chi tiết đơn hàng</h1>";
                 echo "<br><br>";
-                echo "<div class='Order' style = 'width: 80% !important; margin-left: 10%'>";
-                    echo "<div tag='order-component'>";
-                    
+                echo "<div class='Order' style= 'width: 100% !important'>";
+                    echo "<div tag='order-component' style= 'width: 80%; margin: auto'>";
                         while($row = mysql_fetch_assoc($table)){
                             $count++;
                             $PhiShip = 15000; 
                             $Thanhtien= $row['SoLuong']*$row['DonGia'];
                             $Tong= $Thanhtien + $PhiShip;
-                        echo"<div class = 'row' style='margin-bottom: 15px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);'>";
-                            echo"<div class = 'header' style= 'border-bottom: 1px solid #EFF0F5'>";
-                                echo"<p style= 'text-align: center; margin:10px 10px 10px 990px; ;border-radius: 40px; border: 1px solid black;' >".$row['TrangThaiThanhToan']."</p>";
-                            echo"</div>";
-                            echo"<div class = 'body' style='margin: 10px'>";
-                                echo"<div class = 'col-lg-3'>
-                                 <img width=240px height=200px src=".$row['HinhAnhSP'].">
-                                 </div>";
-                                echo"<div class = 'col-lg-4'>
-                                 ".$row['TenSP']."
-                                 </div>";
-                                echo"<div class = 'col-lg-3'>
-                                 ".number_format($Thanhtien,0 , ",",".")."VNĐ
-                                 </div>";
-                                echo"<div class = 'col-lg-2'><p> Số lượng: ".$row['SoLuong']."</p>
-                                 </div> ";
-                            echo"</div>";
-                        echo"</div>";
-                        }
-                        echo"<div class='row' style='margin-bottom: 15px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);'>";
-                            echo"<div class= 'header-2' >";
-                                echo"<div class= 'col-lg-12'>";
-                                    echo"<p>Đơn hàng: ".$row['IDDonHang']."</p>";
-                                    echo"<p>Ngày đặt: ".$row['Ngaydat']."</p>";
+                            echo"<div class= 'Order-small' >";
+                                echo"<div class = 'row' style='margin-bottom: 15px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);'>";
+                                    echo"<div class = 'header' style= 'border-bottom: 1px solid #EFF0F5'>";
+                                        echo"<p style= 'text-align: center; margin:10px 10px 10px 990px; ;border-radius: 40px; border: 1px solid black;' >".$row['TrangThaiThanhToan']."</p>";
+                                    echo"</div>";
+                                    echo"<div class = 'body' style='margin: 10px'>";
+                                        echo"<div class = 'col-lg-3'>
+                                        <img width=240px height=200px src=".$row['HinhAnhSP'].">
+                                        </div>";
+                                        echo"<div class = 'col-lg-4'>
+                                        ".$row['TenSP']."
+                                        </div>";
+                                        echo"<div class = 'col-lg-3'>
+                                        ".number_format($Thanhtien,0 , ",",".")."VNĐ
+                                        </div>";
+                                        echo"<div class = 'col-lg-2'><p> Số lượng: ".$row['SoLuong']."</p>
+                                        </div> ";
+                                    echo"</div>";
                                 echo"</div>";
-                            echo"</div>";
-                        echo"</div>";
 
-                        echo"<div class='row'>";
-                            echo"<div class= 'col-lg-6' style='margin-bottom: 15px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); width: 49%'>";
-                                echo"<p>Tên khách hàng: ".$row['HoTen']."</p>";
-                                echo"<p>Địa chỉ: ".$row['DiaChi']."</p>";
-                            echo"</div>";
-                            echo"<div class= 'col-lg-6' style='margin: 0 0 15px 10px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);width: 50%'>";
-                                echo"<h4>Tổng cộng</h4> <br>";
-                                echo "<div class='footer-1'>";
-                                    echo"<p>Tổng tiền (".$row['SanPham']." Sản phẩm):  ".number_format($Thanhtien,0 , ",",".")."VNĐ</p>";
-                                    echo"<p>Phí vận chuyển: ".number_format($PhiShip,0 , ",",".")."VNĐ</p";
+                                echo"<div class='row' style='margin-bottom: 15px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);'>";
+                                echo"<div class= 'header-2' >";
+                                    echo"<div class= 'col-lg-12'>";
+                                        echo"<p>Đơn hàng: ".$row['IDDonHang']."</p>";
+                                        echo"<p>Ngày đặt: ".$row['Ngaydat']."</p>";
+                                    echo"</div>";
                                 echo"</div>";
-                                echo "<div class='footer-2'>";
-                                    echo"<p>Tổng cộng:  ".number_format($Tong,0 , ",",".")."VNĐ</p>";
-                                echo"</div>";
-                            echo"</div>";
-                        echo"</div>";
+                                echo"</div>"; 
+                                echo"<div class='row'>";
+                                    echo"<div class= 'col-lg-6' style='margin-bottom: 15px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); width: 49%'>";
+                                        echo"<p>Tên khách hàng: ".$row['HoTen']."</p>";
+                                        echo"<p>Địa chỉ: ".$row['DiaChi']."</p>";
+                                    echo"</div>";
+                                    echo"<div class= 'col-lg-6' style='margin: 0 0 15px 10px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);width: 50%'>";
+                                        echo"<h4>Tổng cộng</h4> <br>";
+                                        echo "<div class='footer-1'>";
+                                            echo"<p>Tổng tiền (".$row['SanPham']." Sản phẩm):  ".number_format($Thanhtien,0 , ",",".")."VNĐ</p>";
+                                            echo"<p>Phí vận chuyển: ".number_format($PhiShip,0 , ",",".")."VNĐ</p";
+                                        echo"</div>";
+                                        echo "<div class='footer-2'>";
+                                            echo"<p>Tổng cộng:  ".number_format($Tong,0 , ",",".")."VNĐ</p>";
+                                        echo"</div>";
+                                    echo"</div>";
+                                echo"</div>";   
+                            echo"</div>";    
+                        }        
                     echo"</div>";
                 echo"</div>";
             }

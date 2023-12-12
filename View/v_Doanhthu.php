@@ -33,8 +33,9 @@ class viewThongke {
             </head>
 
             <body>
-                <h3>Thống kê doanh thu</h3>
-                <div style="width: 60%; margin: auto;">
+               
+                <div style="width: 80%; margin: auto;">
+                    <h3>Thống kê doanh thu</h3>
                     <canvas id="lineChart"></canvas>
                 </div>
 
