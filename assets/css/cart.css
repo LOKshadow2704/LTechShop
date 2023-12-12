@@ -1,3 +1,10 @@
 .table_oderlist p{
     width: 69% !important;
 }
+.table_oderlist  tr td:nth-child(1) input{
+    width: 5%;
+    margin-right: 20px;
+}
+.wrap_buy {
+    width: 100%;
+}

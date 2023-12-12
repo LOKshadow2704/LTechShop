@@ -21,7 +21,7 @@
         <input type='text' id='TenDanhMuc' name='TenDanhMuc'  value='".$row['IDDanhMuc']."'> <br>
 
         <label for='NCC'>Nhà cung cấp</label>
-        <input type='number' id='NCC' name='NCC'  value='".$row['NCC']."'> <br>
+        <input type='text' id='NCC' name='NCC'  value='".$row['NCC']."'> <br>
 
         <div class='wrap_textarea'>
             <label for='Mota'>Mô tả sản phẩm</label>
@@ -40,16 +40,15 @@
         $product = new controllProduct();
         $addProd = $product -> updateProduct();
             if(($addProd[0] && $addProd[1]==200) || ($addProd[0] && $addProd[1]==0)){
-                header("refresh: 0;url=index.php?MP=1");
-                echo "<script>alert('Cập nhật sản phẩm thành công')</script>";
+                echo "<script>alert('Cập nhật sản phẩm thành công'); history.back();</script>";
             }else{
-                echo "<script>alert('Cập nhật sản phẩm không thành công')</script>";
+                echo "<script>alert('Cập nhật sản phẩm không thành công'); history.back();</script>";
                 if($addProd[1]!=200 && $addProd[1]!=0){
-                    echo "<script>alert('Có vấn đề hình ảnh')</script>";
+                    echo "<script>alert('Có vấn đề hình ảnh'); history.back();</script>";
                 }
             }
             
     }elseif(isset($_REQUEST["cancle"])){
-        header("Location: index.php?MP=1");
+        echo "<script>window.location.replace('http://localhost:81/LTechShop/index.php?MP=1');</script>";
     }
 ?>

@@ -51,7 +51,7 @@
                                     </div>
                                 
                                     <div class='product-range-bought'>
-                                        <p>".$row['IDDonHang']."</p>
+                                        <p>".$row['SoLuong']."</p>
                                         <p style='color: rgb(160, 160, 160);'>Đã bán</p>
                                     </div>
                                 </div>
@@ -64,14 +64,14 @@
                                 <div>
                                 <div class='product-quantity'>
                                 <p style='font-size: 14px; color: rgb(163, 163, 163)'>Số lượng</p>
-                                <p style='font-size: 14px; color: rgb(163, 163, 163)'>".$row["SoLuongSanPham"]."</p>
+                                <p style='font-size: 14px; color: rgb(163, 163, 163)'>".$row["SoLuong"]."</p>
                            </div>
 
                            <input type='number' name='amount' id='amount' value='1' class='product-input-amount'>
                         
                             <div class='buy-cart'>
-                                <a href='index.php?buy=$id'><button class='button-add__cart add' role='button'>Thêm giỏ hàng</button></a>
-                                <a href='index.php?buy=$id'><button class='button-add__cart add' role='button'>Mua hàng</button></a> 
+                                <a href='index.php?addtocart=$id'><button class='button-add__cart add' role='button'>Thêm giỏ hàng</button></a>
+                                <a href='index.php?oder_prod[0]=$id'><button class='button-add__cart add' role='button'>Mua hàng</button></a> 
                                 <button type='button' class='product_compare' data-toggle='modal' data-target='#myModal' onclick='add_compare($id)'>So sánh</button>
 
                                  </div>
@@ -84,7 +84,7 @@
                  <div class='container'>
 
                     <!-- Modal -->
-                    <div class='modal fade' id='myModal' role='dialog'>
+                    <div class='modal fade' id='myModal' role='dialog' >
                       <div class='modal-dialog modal-lg'>
                         <!-- Modal content-->
                         <div class='modal-content'>
@@ -120,9 +120,11 @@
                      //sản phẩm của shop
                     echo "<br><br>";
                     echo "
-                        <div class='product_shop'>
+                        <div class='product_shop' >
                             <h2 class='productshop'>Sản phẩm của shop:</h2>
-                            <h3 style='color: black''text-align: right'><b>".$row["TenDangNhap"]."</b></h3>
+                            <a href='index.php?idshop=".$row['IDTaiKhoan']."'>
+                            <h3 style='color: blue; text-align: right;'><b>".$row["TenDangNhap"]."</b></h3>
+                            </a>
                         </div>
                     ";
                     // mô tả sp
@@ -138,11 +140,23 @@
                          <div class='review__star'>
                              <div class='review__star-right'>
                                  <div class='star-top'>
-                                     <p class='star-number'>4.8</p>
+                                     <p class='star-number'>".$row["TrungBinhSoSao"]."</p>
                                      <p class='star-title'>trên 5</p>
                                  </div>
                                  
-                                 <p class='star-bottom'>⭐⭐⭐⭐⭐</p>
+                                 <p class='star-bottom'>
+                                    <ul class='list-inline'>";          
+                                        $TrungBinhSoSao = 1;
+                                        while ($TrungBinhSoSao <= 5) {
+                                            if ($row["TrungBinhSoSao"] < $TrungBinhSoSao) {
+                                                echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star-empty' style='color: #FFFF00;'></span></li>";
+                                            } else {
+                                                echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star' style='color: #FFFF00;'></span></li>";
+                                            }
+                                            $TrungBinhSoSao++;
+                                        }
+                                    echo "</ul>
+                                 </p>
                              </div>   
                              
                              <div class='review__star-left'>
@@ -163,155 +177,82 @@
                          </div>
                      </div>
                      ";
- 
+                     //sửa lại phần này
                      // User Comment
-                                    
-                   echo "
-                         <div class='comment'>
-                             <div class='comment-left'>
-                                 <p class='avatar'></p>
-                             </div>
-
-                             <div class='comment-right'>
-                                 <p class='user_name'>".$row["TenDangNhap"]."</p>
-                                 <ul class='list-inline'>";          
-                                    $SoSao = 1;
-                                    while ($SoSao <= 5) {
-                                        if ($row["SoSao"] < $SoSao) {
-                                            echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star-empty' style='color: yellow ;'></span></li>";
-                                        } else {
-                                            echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star' style='color: yellow;'></span></li>";
-                                        }
-                                        $SoSao++;
-                                    }
-                                 echo "</ul>
-                                 <p class='user_date'>2023-11-08 15:10</p>
- 
-                                 <div class='user_info_product'>
-                                     <p>Màu sắc: </p>
-                                     <p> Đẹp</p>
+                     mysql_data_seek($tableProduct, 0);
+                         $comments = array(); // Khởi tạo mảng trước khi sử dụng
+                         while ($row = mysql_fetch_assoc($tableProduct)) {
+                             $comment = array(
+                                 "HoTen" => $row["HoTen"],
+                                 "PhanHoi" => $row["PhanHoi"],
+                                 "SoSao" => $row["SoSao"],
+                             );
+                             $comments[] = $comment;
+                         }
+                         echo "<div class='comment-container'>";
+                         foreach ($comments as $row) {
+                             echo "
+                                 <div class='comment'>
+                                     <div class='comment-left'>
+                                         <p class='avatar'></p>
+                                     </div>
+                     
+                                     <div class='comment-right'>
+                                         <p class='user_name'>" . $row["HoTen"] . "</p>
+                                         <ul class='list-inline'>";
+                             $SoSao = 1;
+                             while ($SoSao <= 5) {
+                                 if ($row["SoSao"] < $SoSao) {
+                                     echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star-empty' style='color: yellow;'></span></li>";
+                                 } else {
+                                     echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star' style='color: yellow;'></span></li>";
+                                 }
+                                 $SoSao++;
+                             }
+                             echo "</ul>
+                                         <p class='user_date'>2023-11-08 15:10</p>
+                     
+                                         <div class='user_info_product'>
+                                             <p>Màu sắc: </p>
+                                             <p> Đẹp</p>
+                                         </div>
+                                         <div class='user_info_product'>
+                                             <p>Đúng với mô tả: </p>
+                                             <p>tốt</p>
+                                         </div>
+                                         <div class='user_info_product'>
+                                             <p>Chất liệu:</p>
+                                             <p>tốt</p>
+                                         </div>
+                                         <p>" . $row["PhanHoi"] . "</p>
+                     
+                                         <div class='image_product'>
+                                             <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/64d0a80d60192db2267febb126dbad0e' alt='Girl in a jacket'>
+                                             <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/dcd6720923dab1e225ca8090e20d31a4' alt='Girl in a jacket'>
+                                             <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/b2a178d242499c30c5b6994478049d0d' alt='Girl in a jacket'>
+                                             <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/2a52108053a3fb4419ce817e18602b82' alt='Girl in a jacket'>
+                                         </div>
+                                         
+                                     </div>                          
                                  </div>
-                                 <div class='user_info_product'>
-                                     <p>Đúng với mô tả: </p>
-                                     <p>tốt</p>
-                                 </div>
-                                 <div class='user_info_product'>
-                                     <p>Chất liệu:</p>
-                                     <p>tốt</p>
-                                 </div>
-                                 <p>".$row["PhanHoi"]."</p>
-                             
-                                 <div class='image_product'>
-                                     <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/vn-11134211-7r98o-lklx7c4ruumof2' alt='Girl in a jacket'>
-                                     <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/vn-11134211-7r98o-lklx7c4rw97463' alt='Girl in a jacket'>
-                                     <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/vn-11134211-7r98o-lklx7c4rxnrkec' alt='Girl in a jacket'>
-                                     <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/vn-11134211-7r98o-lklx7c4s3a1ca5' alt='Girl in a jacket'>
-                                 </div>
-                             </div>
-                         </div>
- 
-                         <div class='comment'>
-                             <div class='comment-left'>
-                                 <p class='avatar'></p>
-                             </div>
- 
-                             <div class='comment-right'>
-                                 <p class='user_name'>".$row["HoTen"]."</p>
-                                 <ul class='list-inline'>";          
-                                    $SoSao = 1;
-                                    while ($SoSao <= 5) {
-                                        if ($row["SoSao"] < $SoSao) {
-                                            echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star-empty' style='color: yellow;'></span></li>";
-                                        } else {
-                                            echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star' style='color: yellow;'></span></li>";
-                                        }
-                                        $SoSao++;
-                                    }
-                                echo "</ul>
-                                 <p class='user_date'>2021-10-27 11:08</p>
- 
-                                 <div class='user_info_product'>
-                                     <p>Màu sắc: </p>
-                                     <p> Đẹp</p>
-                                 </div>
-                                 <div class='user_info_product'>
-                                     <p>Đúng với mô tả: </p>
-                                     <p>tốt</p>
-                                 </div>
-                                 <div class='user_info_product'>
-                                     <p>Chất liệu:</p>
-                                     <p>tốt</p>
-                                 </div>
-                                 <p>".$row["PhanHoi"]."</p>
-                             
-                                 <div class='image_product'>
-                                     <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lmnhims8mpcvb1' alt='Girl in a jacket'>
-                                     <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lmjrmvsr0wyn98' alt='Girl in a jacket'>
-                                     <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lmj5wtx13en35c' alt='Girl in a jacket'>
-                                     <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lmj5wtx1202na0' alt='Girl in a jacket'>
-                                 </div>
-                             </div>
-                         </div>
-
-                         <div class='comment'>
-                             <div class='comment-left'>
-                                 <p class='avatar'></p>
-                             </div>
- 
-                             <div class='comment-right'>
-                                 <p class='user_name'>".$row["HoTen"]."</p>
-                                 <ul class='list-inline'>";          
-                                    $SoSao = 1;
-                                    while ($SoSao <= 5) {
-                                        if ($row["SoSao"] < $SoSao) {
-                                            echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star-empty' style='color: yellow;'></span></li>";
-                                        } else {
-                                            echo "<li class='list-inline-item'><span class='glyphicon glyphicon-star' style='color: yellow;'></span></li>";
-                                        }
-                                        $SoSao++;
-                                    }
-                                    echo "</ul>
-                                 <p class='user_date'>2023-11-08 15:10</p>
- 
-                                 <div class='user_info_product'>
-                                     <p>Màu sắc: </p>
-                                     <p> Đẹp</p>
-                                 </div>
-                                 <div class='user_info_product'>
-                                     <p>Đúng với mô tả: </p>
-                                     <p>tốt</p>
-                                 </div>
-                                 <div class='user_info_product'>
-                                     <p>Chất liệu:</p>
-                                     <p>tốt</p>
-                                 </div>
-                                 <p>".$row["PhanHoi"]."</p>
-                             
-                                 <div class='image_product'>
-                                     <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/64d0a80d60192db2267febb126dbad0e' alt='Girl in a jacket'>
-                                     <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/dcd6720923dab1e225ca8090e20d31a4' alt='Girl in a jacket'>
-                                     <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/b2a178d242499c30c5b6994478049d0d' alt='Girl in a jacket'>
-                                     <img class='image_product_review' src='https://down-vn.img.susercontent.com/file/2a52108053a3fb4419ce817e18602b82' alt='Girl in a jacket'>
-                                 </div>
-                             </div>                          
-                         </div>
-                     ";
-                    $count++;
-                    if ($count % 4 == 0) {
-                        echo "</ul>";
-                        $count = 0;
-                    } elseif ($count == 1) {
-                        break;
-                    }
-                
-                }
-                echo"</div>";
-                }
-            }
-        }
-        
+                             ";
+                         }
+                         echo "</div>";
+               $count++;
+               if ($count % 4 == 0) {
+                   echo "</ul>";
+                   $count = 0;
+               } elseif ($count == 1) {
+                   break;
+               }
+           
+           }
+           echo"</div>";
+           }
+       }
+   }
 ?>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -395,4 +336,4 @@ function add_compare($id) {
 }
     </script>
 </body>
-</html>
+</html> -->

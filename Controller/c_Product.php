@@ -38,6 +38,24 @@
             }
         }
 
+        function getOneinfProduct($idprod){
+            $id =$_REQUEST["pi"];
+            if($id==""){
+                $id=$idprod;
+            }
+            $Product = new modelProduct();
+            $tableProduct = $Product->selectOneinfProduct($id);
+            if(!$tableProduct){
+                return false;
+            }else{
+                if(mysql_num_rows($tableProduct)>0){
+                    return $tableProduct;
+                }else{
+                    return 0;
+                }
+            }
+        }
+
         function getListProduct(){
             $list = $dataArray['oder_prod'];
             $Product = new modelProduct();
@@ -55,6 +73,10 @@
             $ProdSupp = $_REQUEST['NCC'];
             $ProdQuan = $_REQUEST['soluong'];
             $ProdDescribe = $_REQUEST['Mota'];
+            if($ProdName==""||$ProdPrice<=0||$ProdCategory==""||$ProdSupp==""||$ProdQuan==""||$ProdDescribe==""){
+                echo "<script>alert('Không được để trống dữ liệu');  history.back();</script>";
+                return false;
+            }
             $pro = new modelProduct();
             $result = $pro->insertProduct($IdUser,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdQuan,$ProdDescribe);
             return $result;        

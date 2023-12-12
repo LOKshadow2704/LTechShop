@@ -200,17 +200,23 @@
                         // header("Location: index.php.php?pi=".$_REQUEST['addtocart']);
                         echo "<script>alert('Đã thêm sản phẩm vào giỏ hàng');  history.back();</script>";
                     }
-                }elseif(isset($_REQUEST['succes'])){
+                }elseif($_GET['vnp_ResponseCode']=='00'){
+                    //Thanh toán online thông báo
                     include("./Controller/c_Order.php");
                     $cart = new controllOrder();
                     $result=$cart -> updateOrder();
-                    echo "<script>alert('Đặt hàng thành công'); window.location.replace('http://localhost:81/LTechShop/index.php');</script>";
+                    echo "<script>alert('Thanh toán thành công'); window.location.replace('http://localhost:81/LTechShop/index.php');</script>";
                     
+                }elseif(isset($_GET['vnp_ResponseCode'])&&$_GET['vnp_ResponseCode']!='00'){
+                    echo "<script>alert('Thanh toán không thành công'); window.location.replace('http://localhost:81/LTechShop/index.php');</script>";
                 }elseif(isset($_REQUEST['succes_cod'])){
                     echo "<script>alert('Đặt hàng thành công'); window.location.replace('http://localhost:81/LTechShop/index.php');</script>";
-                }elseif(isset($_REQUEST['buynow'])){
-                    include("./Model/Buy_now.php");
-                    
+                }elseif(isset($_REQUEST['faile_cod'])){
+                    echo "<script>alert('Đặt hàng không thành công'); window.location.replace('http://localhost:81/LTechShop/index.php');</script>";
+                }elseif(isset($_REQUEST['oder_prod'])){
+                    include("./View/v_buyProduct.php");
+                    $buy = new viewOderpage();
+                    $buy->BuyNowpage();
                 }else{
                     //Trang chủ
                     include_once("./View/slideshow.php");

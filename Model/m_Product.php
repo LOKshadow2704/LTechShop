@@ -44,6 +44,16 @@
                 return false;
         }
 
+        function selectOneinfProduct($id){
+            $connect;
+            $cn_Product = new clsconnect();
+            if($cn_Product->connect($connect)){
+                $table = mysql_query("select p.IDSanPham,d.TenDanhMuc,p.TenSP, p.DonGia, p.NCC,p.SoLuong, p.HinhAnhSP,p.MoTa from SanPham as p left join DanhMucSanPham as d on p.IDDanhMuc = d.IDDanhMuc where IDSanPham =".$id);
+                return $table;
+            }else
+                return false;
+        }
+
 
         function selectListProduct($list){
             $connect;
@@ -93,13 +103,13 @@
                             $imgurLink = $result['data']['link'];
                             
                         } else {
-                            echo "Upload không thành công. Vui lòng thử lại.";
+                            echo "<script>alert('Upload không thành công. Vui lòng thử lại.');</script>";
                         }
                     } else {
-                        echo "Lỗi khi gửi yêu cầu lên Imgur. HTTP status code: $status";
+                        echo "<script>alert('Lỗi khi gửi yêu cầu lên Imgur. HTTP status code: $status');</script>";
                     }
                 } else {
-                    echo "Định dạng ảnh không hợp lệ.";
+                    echo "<script>alert('Định dạng ảnh không hợp lệ.');</script>";
                 }
             
             $connect;
@@ -161,12 +171,15 @@
                             
                         } else {
                             echo "Upload không thành công. Vui lòng thử lại.";
+                            return false;
                         }
                     } else {
                         echo "Lỗi khi gửi yêu cầu lên Imgur. HTTP status code: $status";
+                        return false;
                     }
                 } else {
                     echo "Định dạng ảnh không hợp lệ.";
+                    return false;
                 }
                 $connect;
                 $cn_Product = new clsconnect();

@@ -11,11 +11,25 @@ include_once("connect_db.php");
         }else
             return false;
     }
+
+    function updateQuantityProd($id){
+        $connect;
+        $cn_Order = new clsconnect();
+        if($cn_Order->connect($connect)){
+            $table = mysql_query("update sanpham set SoLuong = SoLuong - 1 where IDSanPham =$id");
+            $cn_Order->disconnect($connect);
+            return $table;
+        }else
+            return false;
+    }
+
     function selectOneProduct($id){
         $connect;
         $cn_Product = new clsconnect();
         if($cn_Product->connect($connect)){
-            $table = mysql_query("SELECT * FROM sanpham JOIN taikhoan ON sanpham.IDTaiKhoan = taikhoan.IDTaiKhoan LEFT JOIN danhgiasp ON sanpham.IDSanPham = danhgiasp.IDSanPham WHERE sanpham.IDSanPham = '$id';");
+            $table = mysql_query("select p.IDSanPham,d.TenDanhMuc,p.TenSP, p.DonGia, p.NCC,1 as SoLuong, p.HinhAnhSP,p.MoTa , p.IDTaiKhoan as Shop, s.HoTen
+            from sanpham as p join taikhoan as s on s.IDTaiKhoan = p.IDTaiKhoan 
+            join DanhMucSanPham as d on p.IDDanhMuc = d.IDDanhMuc where p.IDSanPham = $id");
             return $table;
         }else
             return false;
@@ -43,15 +57,14 @@ include_once("connect_db.php");
     if($_REQUEST['payment']==2){
         $oderid = lastOder();
         $oderid= mysql_fetch_assoc($oderid);
-        $oderid = $oderid['IDDonHang']+1;
+        $oderid = $oderid['IDDonHang'];
         $IDNguoiMua = $_SESSION['idLogin'];
         $IDLoaiThanhToan = 2;
-        $oderProdValues = $_REQUEST['buynow'];
-        $handOder = 0;
-        $prevIDShop = 0;
+        $oderProdValues = $_SESSION['oderprod'];
         $_SESSION["idOrder"]=$oderid;
-            $cart = selectOneProduct($value);
-            $row = mysql_fetch_assoc($cart);
+        foreach($oderProdValues as $value) {
+            $prod = selectOneProduct($value);
+            $row = mysql_fetch_assoc($prod);
             $IDNguoiBan = $row['Shop'];
             $IDSanPham = $row['IDSanPham'];
             $SoLuong = $row['SoLuong'];
@@ -59,7 +72,8 @@ include_once("connect_db.php");
             $TrangThaiThanhToan='Chưa thanh toán';
             $inseroder = insertOder( $oderid , $IDNguoiBan , $IDNguoiMua );
             $inseroderD= insertOderDetail($oderid , $IDLoaiThanhToan , $IDSanPham , $SoLuong , $DonGia , $TrangThaiThanhToan);  
-        
+            updateQuantityProd($IDSanPham);
+        }
         header("Location: Payment_momo.php");
         exit();
     }if($_REQUEST['payment']==1){
@@ -67,13 +81,12 @@ include_once("connect_db.php");
         $oderid= mysql_fetch_assoc($oderid);
         $oderid = $oderid['IDDonHang']+1;
         $IDNguoiMua = $_SESSION['idLogin'];
-        $IDLoaiThanhToan = 2;
-        $oderProdValues = $_REQUEST['buynow'];
-        $handOder = 0;
-        $prevIDShop = 0;
+        $IDLoaiThanhToan = 1;
+        $oderProdValues = $_SESSION['oderprod'];
         $_SESSION["idOrder"]=$oderid;
-            $cart = selectOneProduct($value);
-            $row = mysql_fetch_assoc($cart);
+        foreach($oderProdValues as $value) {
+            $prod = selectOneProduct($value);
+            $row = mysql_fetch_assoc($prod);
             $IDNguoiBan = $row['Shop'];
             $IDSanPham = $row['IDSanPham'];
             $SoLuong = $row['SoLuong'];
@@ -81,8 +94,14 @@ include_once("connect_db.php");
             $TrangThaiThanhToan='Chưa thanh toán';
             $inseroder = insertOder( $oderid , $IDNguoiBan , $IDNguoiMua );
             $inseroderD= insertOderDetail($oderid , $IDLoaiThanhToan , $IDSanPham , $SoLuong , $DonGia , $TrangThaiThanhToan);  
-        
-        header("Location: http://localhost:81/LTechShop/index.php?succes_cod");
+            updateQuantityProd($IDSanPham);
+            }
+        if($inseroder&&$inseroderD){
+            header("Location: http://localhost:81/LTechShop/index.php?succes_cod");
+        }else{
+            header("Location: http://localhost:81/LTechShop/index.php?faile_cod");
+        }
+
         exit();
     }
     
