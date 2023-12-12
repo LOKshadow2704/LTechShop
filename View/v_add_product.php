@@ -37,17 +37,16 @@
         $addProd = $product -> addProduct();
         if($addProd[1]==200){
             if($addProd[0]){
-                echo "<script>alert('Thêm sản phẩm thành công')</script>";
-                header("Refresh: 0; url = index.php?MP=1");
+                echo "<script>alert('Thêm sản phẩm thành công'); window.location.replace('http://localhost:81/LTechShop/index.php?addPr');</script>";
             }else{
-                echo "<script>alert('Thêm sản phẩm không thành công')</script>";
+                echo "<script>alert('Thêm sản phẩm không thành công') history.back();</script>";
             }
         }else{
-            echo "<script>alert('Có vấn đề hình ảnh')</script>";
+            echo "<script>alert('Có vấn đề hình ảnh') history.back();</script>";
         }
         
 
     }elseif(isset($_REQUEST["cancle"])){
-        header("Location: index.php?MP=1");
+        echo "<script>window.location.replace('http://localhost:81/LTechShop/index.php?MP=1');</script>";
     }
 ?>

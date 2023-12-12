@@ -22,11 +22,11 @@
             }else
                 return false;
         }
-         function selectPucchaseOrder($userid){
+         function selectPucchaseOrder(){
              $connect;
              $cn_Order = new clsconnect();  
              if($cn_Order->connect($connect)){
-                 $table = mysql_query("select p.HinhAnhSP, p.TenSP, p.DonGia, d.SoLuong, d.TrangThaiThanhToan,o.NgayDat from chitietdonhang as d inner join donhang as o on d.IDDonHang = o.IDDonHang inner join sanpham as p on d.IDSanPham = p.IDSanPham inner join loaithanhtoan as ck on d.IDLoaiThanhToan = ck.IDLoaiThanhToan where IDNguoiMua = ".$userid);
+                 $table = mysql_query("select p.HinhAnhSP, p.TenSP, p.DonGia, d.SoLuong, d.TrangThaiThanhToan,o.NgayDat from chitietdonhang as d inner join donhang as o on d.IDDonHang = o.IDDonHang inner join sanpham as p on d.IDSanPham = p.IDSanPham inner join loaithanhtoan as ck on d.IDLoaiThanhToan = ck.IDLoaiThanhToan where IDNguoiMua = ".$_SESSION['idLogin']);
                  $cn_Order->disconnect($connect);
                  return $table;
              }else
