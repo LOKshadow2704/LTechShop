@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include_once("./Model/m_Product.php");
     class controllProduct{
         function getAllProduct(){
@@ -14,13 +15,16 @@
         }
 
         function getProductbyManager(){
-            $userid =1;
             $Product = new modelProduct();
-            $tableProduct = $Product->selectProductbyManager($userid);
+            $tableProduct = $Product->selectProductbyManager($_SESSION['idLogin']);
             return $tableProduct;
         }
 
-        function getOneProduct($id){
+        function getOneProduct($idprod){
+            $id =$_REQUEST["pi"];
+            if($id==""){
+                $id=$idprod;
+            }
             $Product = new modelProduct();
             $tableProduct = $Product->selectOneProduct($id);
             if(!$tableProduct){
@@ -34,17 +38,25 @@
             }
         }
 
+        function getListProduct(){
+            $list = $dataArray['oder_prod'];
+            $Product = new modelProduct();
+            $tableProduct = $Product->selectListProduct($list);
+            return $tableProduct;
+        }
+
         function addProduct(){
             //Bắt dữ liệu
-            $IdUser = 1;
+            $IdUser =$_SESSION['idLogin'];
             $ProdName = $_REQUEST['TenSP'];
             $ProdPrice = $_REQUEST['DonGia'];
             $file = $_FILES['myFile'];
             $ProdCategory = $_REQUEST['TenDanhMuc'];
             $ProdSupp = $_REQUEST['NCC'];
+            $ProdQuan = $_REQUEST['soluong'];
             $ProdDescribe = $_REQUEST['Mota'];
             $pro = new modelProduct();
-            $result = $pro->insertProduct($IdUser,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdDescribe);
+            $result = $pro->insertProduct($IdUser,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdQuan,$ProdDescribe);
             return $result;        
     }
 
@@ -69,5 +81,17 @@
         $result = $pro->updateProduct($idProd,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdDescribe);
         return $result;        
 }
+
+    function getSPsearch($search){
+        $Product = new modelProduct();
+        $tableProduct = $Product->selectSPsearch($search);
+        return $tableProduct;
+    }
+
+    function getSPByTimGia($giamin, $giamax){
+        $p = new modelProduct();
+        $table = $p->selectAllTimKiemGia($giamin, $giamax);
+        return $table;
+    }
 }
 ?>
