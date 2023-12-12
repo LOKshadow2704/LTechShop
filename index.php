@@ -133,7 +133,9 @@
                                         '</tr>'
                                 );
                                 localStorage.setItem('compare', JSON.stringify(old_data));
-                                $("#myModal").modal();
+                                $('#myModal').on('shown.bs.modal', function () {
+                                    console.log('Modal shown');
+                                });
                             }
                         }
             </script>
