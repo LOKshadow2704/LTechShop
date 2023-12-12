@@ -12,7 +12,7 @@ class modelAuth
             $cn_Auth->disconnect($connect);
             if ($table) {
                 if (mysql_num_rows($table) > 0) {
-                    return true;
+                    return $table;
                 }
             }
 

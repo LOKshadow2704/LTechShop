@@ -50,10 +50,11 @@
                     </script>
     <div id="root">
         <?php
-session_start();
-include_once './View/v_Header.php';
-$viewHeader = new viewHeader();
-$viewHeader->showHeader();
+        error_reporting(E_ALL ^ E_DEPRECATED);
+        session_start();
+        include_once './View/v_Header.php';
+        $viewHeader = new viewHeader();
+        $viewHeader->showHeader();
 ?>
         <div class="container">
             <?php

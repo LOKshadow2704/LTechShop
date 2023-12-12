@@ -4,8 +4,8 @@ class viewRegister
     public function showRegisterPage()
     {
         if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == true) {
-            header("Location: index.php?login");
-            exit();
+            header("Location: index.php");
+            return;
         } elseif (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['rePassword'])) {
             include_once "./Controller/c_Auth.php";
             $auth = new controllerAuth();

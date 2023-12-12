@@ -16,19 +16,17 @@ class viewHeader
                 </div>
                 <div class='top_right_header'>
                     <div class='account'>
-                        <a href=''>
+                        <a href='index.php?edit-profile'>
                             <i class='fa-solid fa-user' style='color: #ffffff;'></i>
                         </a>";
 
         if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == true) {
             echo "<a href='index.php?logout=1'>Đăng xuất</a>";
-        }
-
+        } 
         if (isset($_REQUEST['logout']) && $_REQUEST['logout'] == 1 || !isset($_SESSION['isLogin']) || $_SESSION['isLogin'] == false) {
             echo "<a href='index.php?login=1'>Đăng nhập</a><p>|</p><a href='index.php?signup=1'>Đăng ký</a>";
             $_SESSION['isLogin'] = false;
         }
-
         if (isset($_REQUEST['logout']) && $_REQUEST['logout'] == 1) {
             session_destroy();
             header("Location: index.php");

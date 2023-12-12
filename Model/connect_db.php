@@ -5,7 +5,7 @@ class clsconnect
     {
         $servername = "localhost"; #đổi thành localhost ở đây và file config
         $username = "root"; #root
-        $password = "root"; #mâtj khẩu để trống
+        $password = ""; #mâtj khẩu để trống
         $connect = mysql_connect("" . $servername . "", "" . $username . "", "" . $password . "");
         mysql_set_charset("UTF8");
         if ($connect) {
