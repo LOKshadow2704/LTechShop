@@ -1,7 +1,7 @@
 <?php
-    session_start();
-    include_once("./Model/m_Product.php");
-    class controllProduct{
+include_once "./Model/m_Product.php";
+class controllProduct
+{
         function getAllProduct(){
             $Product = new modelProduct();
             $tableProduct = $Product->selectAllProduct();
@@ -82,15 +82,19 @@
             return $result;        
     }
 
-        function deleteProduct(){
-            //Bắt dữ liệu
-            $idProd = $_REQUEST['delete'];
-            $pro = new modelProduct();
-            $result = $pro->deleteProduct($idProd);
-            return $result;        
+    
+
+    public function deleteProduct()
+    {
+        //Bắt dữ liệu
+        $idProd = $_REQUEST['delete'];
+        $pro = new modelProduct();
+        $result = $pro->deleteProduct($idProd);
+        return $result;
     }
 
-    function updateProduct(){
+    public function updateProduct()
+    {
         //Bắt dữ liệu
         $idProd = $_REQUEST['update'];
         $ProdName = $_REQUEST['TenSP'];
@@ -100,14 +104,30 @@
         $ProdSupp = $_REQUEST['NCC'];
         $ProdDescribe = $_REQUEST['Mota'];
         $pro = new modelProduct();
-        $result = $pro->updateProduct($idProd,$ProdName,$ProdPrice,$file,$ProdCategory,$ProdSupp,$ProdDescribe);
-        return $result;        
-}
+        $result = $pro->updateProduct($idProd, $ProdName, $ProdPrice, $file, $ProdCategory, $ProdSupp, $ProdDescribe);
+        return $result;
+    }
 
-    function getSPsearch($search){
+    public function getNumberProduct()
+    {
+        $pro = new modelProduct();
+        $result = $pro->getNumberProduct();
+        return $result;
+    }
+
+    public function getSPsearch($search)
+    {
         $Product = new modelProduct();
         $tableProduct = $Product->selectSPsearch($search);
         return $tableProduct;
     }
+
+    public function getProductFromTo($from, $to)
+    {
+        $Product = new modelProduct();
+        $tableProduct = $Product->getProductFromTo($from, $to);
+        return $tableProduct;
+    }
+
 }
-?>
+    
