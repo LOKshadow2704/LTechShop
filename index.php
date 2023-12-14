@@ -19,15 +19,18 @@
     <link rel="stylesheet" href="./assets/css/cart.css">
     <link rel="stylesheet" href="./assets/css/Payment.css">
     <link rel="stylesheet" href="./assets/css/pro_search.css">
+    <link rel="stylesheet" href="./assets/css/product.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/0bd872d3c5.js" crossorigin="anonymous"></script>
     
+    
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>LTechShop</title>
 </head>
 <body>
+    <?php session_start(); ?>
 <script type='text/javascript'>
                             function update_quantity(new_quantity,product_id,price){
                                 $.ajax({
@@ -47,16 +50,97 @@
                                     error: function (error) {console.error('Error:', error)},
                                 })
                             }
+                            
                     </script>
-    <div id="root">
+                
+    <!-- chuyển từ product_info sang đây -->
+    <!-- js so sánh -->
+            <script>
+                            function delete_compare(id) {
+                                if (localStorage.getItem('compare') != null) {
+                                var data = JSON.parse(localStorage.getItem('compare'));
+                                var index = data.findIndex(item => item.id === id);
+                                data.splice(index, 1);
+                                localStorage.setItem('compare', JSON.stringify(data)); 
+                                document.getElementById("row_compare" + id).remove();
+                            }
+                        }
+                        $(document).ready(function() {
+                            viewed_compare();
+                            function viewed_compare() {
+                                if (localStorage.getItem('compare') != null) {
+                                    var data = JSON.parse(localStorage.getItem('compare'));
+                                    for (i = 0; i < data.length; i++) {
+                                        var name = data[i].name;
+                                        var price = data[i].price;
+                                        var image = data[i].image;
+                                        var content = data[i].content;
+                                        var id = data[i].id;
+
+                                        $('#row_compare').find('tbody').append(
+                                            '<tr id="row_compare' + id + '">' +
+                                            '<td><img width="200px" width="100%" src="' + image + '"></td>' +
+                                            '<td>' + name + '</td>' +
+                                            '<td>' + price + '</td>' +
+                                            '<td>'+ content+'</td>' +
+                                            '<td><a href="index.php?pi=' + id + '">Xem sản phẩm</a></td>' +
+                                            '<td onclick="delete_compare(' + id + ')"><a style="cursor:pointer;">Xóa so sánh</a></td>' +
+                                            '</tr>'
+                                        );
+                                    }
+                                }
+                            }
+
+                        });
+function add_compare($id) {
+                            document.getElementById('title_compare').innerText = 'Chỉ cho phép so sánh tối đa 2 sản phẩm';  
+                            var id =$id;
+                            var image = document.querySelector('.product_left').src;
+                            var name = document.querySelector('.product-title').innerText;
+                            var price = document.querySelector('.product-price').innerText;
+                            var content = document.querySelector('.product-description1').innerText;
+                            
+                            var newItem = {
+                                'id': id,
+                                'image': image,
+                                'name': name,
+                                'price': price,
+                                'content': content
+                            };
+                            if (localStorage.getItem('compare') == null) {
+                                localStorage.setItem('compare', '[]');
+                            }
+                            var old_data = JSON.parse(localStorage.getItem('compare'));
+                            var matches = old_data.filter(obj => obj.id == id);
+
+                            if (matches.length === 0 && old_data.length < 2) {
+                                old_data.push(newItem);
+                                $('#row_compare').find('tbody').append(
+                                        '<tr id="row_compare' + id + '">' +
+                                        '<td><img width="200px" width="100%" src="' + image + '"></td>' +
+                                        '<td>' + newItem.name + '</td>' +
+                                        '<td>' + newItem.price + '</td>' +
+                                        '<td>'+ newItem.content +'</td>' +
+                                        '<td><a href="index.php?pi=' + id + '"></a>Xem sản phẩm</td>' +
+                                        '<td onclick="delete_compare(' + id + ')"><a style="cursor:pointer;">Xóa so sánh</a></td>' +
+                                        '</tr>'
+                                );
+                                localStorage.setItem('compare', JSON.stringify(old_data));
+                                $('#myModal').on('shown.bs.modal', function () {
+                                    console.log('Modal shown');
+                                });
+                            }
+                        }
+            </script> 
+    <div id="root" >
         <?php
-            session_start();
             include_once('./View/v_Header.php');
             $viewHeader = new viewHeader();
             $viewHeader->showHeader();
         ?>
-        <div class="container">
+        <div class="container" >
             <?php
+
                 if(isset($_REQUEST['MP'])){
                     //Trang quản lý sản phẩm
                     echo "<div class='wrap_seller'>";
@@ -87,13 +171,19 @@
                     include_once("./View/v_Order.php");
                     $product = new viewOrder();
                     $table = $product ->viewSalesOrder($_REQUEST["DO"]);
-                }
-                elseif(isset($_REQUEST['PP'])){
-                    //Trang đơn mua
-                    $userid=2;
+                }elseif(isset($_REQUEST['PP'])){
+                    if(isset($_SESSION['idLogin'])){
+                        include_once("./View/v_Order.php");
+                        $product = new viewOrder();
+                        $table = $product ->viewPuchaseOrder();
+                    }else{
+                        echo "<script>alert('Vui lòng đăng nhập'); history.back();</script>";
+                    }
+                }elseif(isset($_REQUEST['OrD'])){
+                    //Trang chi tiết đơn hàng
                     include_once("./View/v_Order.php");
                     $product = new viewOrder();
-                    $table = $product ->viewPuchaseOrder();
+                    $table = $product ->viewOrderDetail($_REQUEST["OrD"]);
                 }elseif(isset($_REQUEST['pi'])){
                     //Xem chi tiết sản phẩm
                     include("./View/Product_info.php");
@@ -123,8 +213,10 @@
                     include_once('./Controller/c_Product.php');
                     $product = new controllProduct();
                     $act = $product->deleteProduct();
-                    echo "<script>alert('Xóa thành công')</>";
-                    header("Refresh: 0; url = index.php?MP=1");
+                    if($act){
+                        echo "<script>alert('Xóa thành công'); window.location.replace('http://localhost:81/LTechShop/index.php?MP=1');</script>";
+                    }
+
                 }elseif(isset($_REQUEST['idshop'])){
                     include("./View/v_Shop.php");
                     $Product = new viewShop();
@@ -145,8 +237,7 @@
                         echo "</div>";
                         echo "</div>";
                     }else{
-                        echo "<script>alert('Vui lòng đăng nhập')</script>";
-                        header("Refresh: 0; url = index.php");
+                        echo "<script>alert('Vui lòng đăng nhập'); history.back();</script>";
                     }
                     
                 }elseif(isset($_REQUEST['quan_prod'])){
@@ -180,25 +271,73 @@
                     echo "</div>";
                 }elseif(isset($_REQUEST['txtsearch'])){
                     //tìm kiếm
-                    include("./View/v_Product.php");
+                    echo"<div class = 'widthSearch' style='width: 100% !important'>";
+                    echo"<div class= row>";
+                    echo "<div class= col-lg-2>";
+                    include_once("./View/v_Comp.php");
+                    $Company = new ViewCompany();
+                    $table = $Company->viewAllCompany();
+                    echo"</div>";
+                    echo "<div class= col-lg-10>";
+                    include_once("./View/v_Product.php");
                     $Product = new viewProduct();
                     $Product -> viewAllSPbySearch($_REQUEST["txtsearch"]);
+                    echo"</div>";
+                    echo"</div>";
+                    echo"</div>";
+                }elseif(isset($_REQUEST["Comp"])){
+                    //Đã thêm lọc theo danh mục
+                    //Lọc theo danh mục sản phẩm
+                    echo"<div class = 'widthSearch' style='width: 100% !important'>";
+                    echo"<div class= row>";
+                    echo "<div class= col-lg-2>";
+                    include_once("./View/v_Comp.php");
+                    $Company = new ViewCompany();
+                    $table = $Company->viewAllCompany();
+                    echo"</div>";
+                    echo "<div class= col-lg-10>";
+                    include_once("./View/v_Comp.php");
+                    $product = new ViewCompany();
+                    $table = $product->viewAllProdByCompany($_REQUEST["Comp"]);
+                    echo"</div>";
+                    echo"</div>";
+                    echo"</div>";
+                }elseif(isset($_REQUEST['giamin']) && isset($_REQUEST['giamax'])){
+                    // Đã thêm lọc theo giá
+                    echo"<div class = 'widthSearch' style='width: 100% !important'>";
+                    echo"<div class= row>";
+                    echo "<div class= col-lg-2>";
+                    include_once("./View/v_Comp.php");
+                    $Company = new ViewCompany();
+                    $table = $Company->viewAllCompany();
+                    echo"</div>";
+                    echo "<div class= col-lg-10>";
+                    include("./View/v_Product.php");
+                    $Product = new ViewProduct();
+                    $result =$Product -> ViewSPByTimGia($_REQUEST['giamin'], $_REQUEST['giamax']);
+                    echo"</div>";
+                    echo"</div>";
+                    echo"</div>";
                 }elseif(isset($_REQUEST['delete_cartitem'])){
                     // Xóa sản phẩm giỏ hàng
                     include("./Controller/c_cart.php");
                     $cart = new controllerCart();
                     $result= $cart -> deleteCartItem();
                     if($result){
-                        echo "<script>alert('Xóa thành công');  history.back();</script>";
+                        echo "<script>alert('Xóa thành công');  window.location.replace('http://localhost:81/LTechShop/index.php?cart');</script>";
                     }
                 }elseif(isset($_REQUEST['addtocart'])){
                     // Thêm sản phẩm giỏ hàng
-                    include("./Controller/c_cart.php");
-                    $cart = new controllerCart();
-                    $result=$cart -> addCartItem();
-                    if($result){
-                        // header("Location: index.php.php?pi=".$_REQUEST['addtocart']);
-                        echo "<script>alert('Đã thêm sản phẩm vào giỏ hàng');  history.back();</script>";
+                    if(isset($_SESSION['idLogin'])){
+                        include("./Controller/c_cart.php");
+                        $cart = new controllerCart();
+                        $result=$cart -> addCartItem();
+                        if($result){
+                            // header("Location: index.php.php?pi=".$_REQUEST['addtocart']);
+                            echo "<script>alert('Đã thêm sản phẩm vào giỏ hàng');  history.back();</script>";
+                        }
+                    }else{
+                        echo "<script>alert('Vui lòng đăng nhập'); history.back();</script>";
                     }
                 }elseif($_GET['vnp_ResponseCode']=='00'){
                     //Thanh toán online thông báo
@@ -207,6 +346,16 @@
                     $result=$cart -> updateOrder();
                     echo "<script>alert('Thanh toán thành công'); window.location.replace('http://localhost:81/LTechShop/index.php');</script>";
                     
+                }elseif (isset($_REQUEST["forget-password"])) {
+                    //Quên mật khẩu
+                    include_once "./View/v_ForgetPassword.php";
+                    $page = new viewForgetPassword();
+                    $page->showForgetPassword();
+                }elseif (isset($_REQUEST["edit-profile"])) {
+                    //Chỉnh sửa profile
+                    include_once "./View/v_Profile.php";
+                    $page = new viewProfile();
+                    $page->showPage();
                 }elseif(isset($_GET['vnp_ResponseCode'])&&$_GET['vnp_ResponseCode']!='00'){
                     echo "<script>alert('Thanh toán không thành công'); window.location.replace('http://localhost:81/LTechShop/index.php');</script>";
                 }elseif(isset($_REQUEST['succes_cod'])){

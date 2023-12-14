@@ -2,18 +2,20 @@
     margin: 0;
     padding: 0;
     font-family: "Amazon Ember",Arial,sans-serif;
+    box-sizing: border-box;
 }
+
+
 
 .container{
     width: 100% !important;
-    margin-top: 120px;
+    margin-top: 100px;
     height: fit-content;
     display: flex;
     flex-direction: column;
     align-content: center;
     flex-wrap: wrap;
 }
-
 
 
 header a , .footer a{
@@ -37,4 +39,8 @@ a:hover{
 
 td, th{
     text-align: center !important;
+}
+
+.product__ :hover{
+
 }

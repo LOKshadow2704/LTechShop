@@ -38,7 +38,12 @@
             $connect;
             $cn_Product = new clsconnect();
             if($cn_Product->connect($connect)){
-                $table = mysql_query("SELECT * FROM sanpham JOIN taikhoan ON sanpham.IDTaiKhoan = taikhoan.IDTaiKhoan LEFT JOIN danhgiasp ON sanpham.IDSanPham = danhgiasp.IDSanPham WHERE sanpham.IDSanPham = '$id';");
+                $table = mysql_query("SELECT 
+            sanpham.*,(SELECT taikhoan.TenDangNhap FROM taikhoan WHERE taikhoan.IDTaiKhoan = sanpham.IDTaiKhoan) AS TenDangNhap,danhgiasp.PhanHoi,danhgiasp.SoSao,danhgiasp.TongSoSao,danhgiasp.TongSoDanhGia,danhgiasp.TrungBinhSoSao,taikhoan.HoTen,(SELECT SUM(chitietdonhang.SoLuong)FROM chitietdonhang WHERE chitietdonhang.IDSanPham = sanpham.IDSanPham) as SoLuong
+            FROM sanpham
+            LEFT JOIN danhgiasp ON sanpham.IDSanPham = danhgiasp.IDSanPham
+            LEFT JOIN taikhoan ON danhgiasp.IDTaiKhoan = taikhoan.IDTaiKhoan
+            WHERE sanpham.IDSanPham ='$id'");
                 return $table;
             }else
                 return false;
@@ -210,6 +215,18 @@
                 return $table;
             }else
                 return false;
+        }
+
+        function selectAllTimKiemGia($giamin, $giamax){
+            $connect;
+            $p = new clsconnect();
+            if($p->connect($connect)){
+                $table = mysql_query("select * from sanpham where DonGia between $giamin and $giamax order by DonGia ASC");
+                $p->disconnect($connect);
+                return $table;
+            }else{
+                return false;
+            }
         }
 
 }

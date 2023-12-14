@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include_once("./Model/m_Product.php");
     class controllProduct{
         function getAllProduct(){
@@ -108,6 +107,12 @@
         $Product = new modelProduct();
         $tableProduct = $Product->selectSPsearch($search);
         return $tableProduct;
+    }
+
+    function getSPByTimGia($giamin, $giamax){
+        $p = new modelProduct();
+        $table = $p->selectAllTimKiemGia($giamin, $giamax);
+        return $table;
     }
 }
 ?>

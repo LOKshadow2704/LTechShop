@@ -1,11 +1,12 @@
 .wrap_seller{
     width: 100%;
     display: flex;
+    background-color: white; 
 }
 
 .leftMenu {
     width: 20%;
-    background-color: #131921;
+    background-color: #131921 !important;
 }
 
 .leftMenu h4{

@@ -1,17 +1,16 @@
 <?php
+    session_start();
     include_once("./Model/m_Order.php");
     class controllOrder{
         function getManagermentSalesOrder(){
-            $userid =1;
             $Order = new modelOrder();
-            $tableOrder = $Order->selectManagermentSalesOrder($userid);
+            $tableOrder = $Order->selectManagermentSalesOrder($_SESSION['idLogin']);
             return $tableOrder;
         }
 
         function getPucchaseOrder(){
-            $userid =2;
             $Order = new modelOrder();
-            $tableOrder = $Order->selectPucchaseOrder($userid);
+            $tableOrder = $Order->selectPucchaseOrder($_SESSION['idLogin']);
             return $tableOrder;
         }
 
@@ -28,7 +27,15 @@
                     return 0;
                 }
             }
-    }
+        }
+
+        function getOrderDetail($idorder){
+            //$idorder =1;
+            $Order = new modelOrder();
+            $tableOrder = $Order->selectOrderDetail($idorder);
+            return $tableOrder;
+            
+        }
 
     function updateOrder(){
         $Order = new modelOrder();

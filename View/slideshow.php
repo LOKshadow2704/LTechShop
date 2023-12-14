@@ -11,15 +11,22 @@
     <!-- Wrapper for slides -->
     <div class='carousel-inner'>
       <div class='item active'>
+        <a href='index.php?idshop=2'>
         <img src='https://drive.google.com/uc?id=1UccC_TT_ge2vGTKMSFoDgSP8r_12lB4w' alt='' style='width:100%; height:475px;'>
+        </a>
       </div>
 
       <div class='item'>
+      <a href='index.php?idshop=1'>
         <img src='https://drive.google.com/uc?id=1Ebkc0_DBkRzPJzwlzRolps-UDkNW6KDJ' alt='' style='width:100%; height:475px;'>
+        </a>
       </div>
     
       <div class='item'>
+      <a href='index.php?idshop=3'>
         <img src='https://drive.google.com/uc?id=1YyFOcY-bGI0zrs4xfIu5x4kUEQhodTqW' alt='' style='width:100%; height:475px;'>
+
+        </a>
       </div>
     </div>
 

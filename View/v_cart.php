@@ -19,7 +19,7 @@ class viewCart{
                 echo "
                     <div class='wrap_buy'>
                         <div class='cart'>
-                            <h4>Giỏ hàng của bạn</h4>
+                            <h2>Giỏ hàng của bạn</h2>
                         </div>";
                         echo "<form class='form-cart'  method='GET' action='#'>";
                         echo "<table class='table_oderlist  table '>";

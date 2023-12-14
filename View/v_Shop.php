@@ -38,27 +38,30 @@
                 $row = mysql_fetch_assoc($tableProduct);
     
                 echo "<div class='shop_one'>";
-                    echo "<div class='shop_info'>";
-                        echo "<h2><p><b>Tên Shop:</b> " . $row['TenDangNhap'] . "</p></h2>";
-                        echo "<h2><p><b>Địa chỉ:</b> " . $row['DiaChi'] . "</p></h2>";
-                        echo "<h2><p><b>Số điện thoại:</b> " . $row['DienThoai'] . "</p></h2>";
-                    echo "</div>";
-                $count = 0;
-                echo "<ul>";
-                while ($row = mysql_fetch_assoc($tableProduct)){
-                    echo "<li> <a href='index.php?pi=" . $row['IDSanPham'] . "'>";
-                    echo "<br>";
-                    echo "<img width=280px height=200px src=" . $row['HinhAnhSP'] . ">";
-                    echo "<br> <p style='color: black'><b>" . $row["TenSP"] . "</b></p>";
-                    echo "<br><br>";
-                    echo "<p style= 'color: red'>" . number_format($row["DonGia"], 0, ",", ".") . " VNĐ</p>";
-                    echo "<br></a></li>";
-                    $count++;
-                    if ($count % 25 == 0) {
-                        echo "</ul>";
-                        $count = 0;
-                    }
-                } 
+                        echo "<div class='shop_info' style='box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3)'>";
+                            echo "<h2><p><b>Tên Shop:</b> " . $row['TenDangNhap'] . "</p></h2>";
+                            echo "<h2><p><b>Địa chỉ:</b> " . $row['DiaChi'] . "</p></h2>";
+                            echo "<h2><p><b>Số điện thoại:</b> " . $row['DienThoai'] . "</p></h2>";
+                        echo "</div>";
+                    $count = 0;
+                  
+                    while ($row = mysql_fetch_assoc($tableProduct)){
+                        if($count == 0) {
+                            echo "<ul style ='box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);'>"; 
+                        }
+                        echo "<li> <a href='index.php?pi=" . $row['IDSanPham'] . "'>";
+                        echo "<br>";
+                        echo "<img width=280px height=200px src=" . $row['HinhAnhSP'] . ">";
+                        echo "<br> <p style='color: black'><b>" . $row["TenSP"] . "</b></p>";
+                        echo "<br><br>";
+                        echo "<p style= 'color: red'>" . number_format($row["DonGia"], 0, ",", ".") . " VNĐ</p>";
+                        echo "<br></a></li>";
+                        $count++;
+                        if ($count % 4 == 0) {
+                            echo "</ul>";
+                            $count = 0;
+                        }
+                    } 
     
                 echo "</div>";
             } else {

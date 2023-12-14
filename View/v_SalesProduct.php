@@ -16,8 +16,7 @@
                 while($row = mysql_fetch_assoc($table)) { 
                     $data[] = array( 
                         'TenSP' => $row["TenSP"], 
-                        'SoLuong' => $row["SoLuong"], 
-                        'Doanhthu' => $row["Doanhthu"]
+                        'SoLuong' => $row["SoLuong"]
                     ); 
                 } 
 
@@ -35,7 +34,8 @@
             </head> 
 
             <body> 
-                <div style="width: 90%; "> 
+                <div style="width: 80%; ">
+                    <h3>Thống kê sản phẩm đã bán</h3>
                     <canvas id="barChart"></canvas> 
                 </div> 
 
@@ -80,7 +80,7 @@
                 </script> 
             </body> 
 
-            </html> 
+            </html>
 
 <?php 
             } 

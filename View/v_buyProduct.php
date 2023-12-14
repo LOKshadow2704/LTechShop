@@ -22,7 +22,7 @@ ob_start();
             if(!$result_shop){
                 echo "ERROR";
             }elseif(mysql_num_rows($result_shop)==0){
-                echo "Vui lòng đăng nhập";
+                echo "<script>alert('Vui lòng đăng nhập'); history.back();</script>";
             }else{
                 $row_shop = mysql_fetch_assoc($result_shop);
                 echo "
@@ -62,13 +62,13 @@ ob_start();
                                 echo "</select> <br>";
                                 echo "
                                 <label for='commodity_money' >Tổng tiền hàng:</label>
-                                <input type='number' id='commodity_money' name='commodity_money' readonly placeholder='$total_money' > <br>
+                                <input type='number' id='commodity_money' name='commodity_money' readonly placeholder='".number_format($total_money,0 , ",",".")."' > <br>
 
                                 <label for='ship_money'>Phí vận chuyển:</label>
                                 <input type='number' id='ship_money' name='ship_money' readonly placeholder='$ship'> <br>
 
                                 <label for='total_money'>Tổng thanh toán:</label>
-                                <input type='number' id='total_money' name='total_money' readonly placeholder='$total_money' value='$total_money'> <br>
+                                <input type='number' id='total_money' name='total_money' readonly placeholder='".number_format($total_money,0 , ",",".")."' value='".number_format($total_money,0 , ",",".")."'> <br>
                                 <button type='submit'  name='Buy' class='btn btn-danger'>Đặt hàng</button>
                         </form>";       
                 echo "</div>
@@ -98,7 +98,7 @@ ob_start();
         if(!$result_shop){
             echo "ERROR";
         }elseif(mysql_num_rows($result_shop)==0){
-            echo "Vui lòng đăng nhập";
+            echo "<script>alert('Vui lòng đăng nhập'); history.back();</script>";
         }else{
             $row_shop = mysql_fetch_assoc($result_shop);
             echo "
@@ -139,13 +139,13 @@ ob_start();
                             echo "</select> <br>";
                             echo "
                             <label for='commodity_money' >Tổng tiền hàng:</label>
-                            <input type='number' id='commodity_money' name='commodity_money' readonly placeholder='$total_money' > <br>
+                            <input type='number' id='commodity_money' name='commodity_money' readonly placeholder='".number_format($total_money,0 , ",",".")."' > <br>
 
                             <label for='ship_money'>Phí vận chuyển:</label>
                             <input type='number' id='ship_money' name='ship_money' readonly placeholder='$ship'> <br>
 
                             <label for='total_money'>Tổng thanh toán:</label>
-                            <input type='number' id='total_money' name='total_money' readonly placeholder='$total_money' value='$total_money'> <br>
+                            <input type='number' id='total_money' name='total_money' readonly placeholder='".number_format($total_money,0 , ",",".")."' value='$total_money'> <br>
                             <button type='submit'  name='Buy' class='btn btn-danger'>Đặt hàng</button>
                     </form>";       
             echo "</div>

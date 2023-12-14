@@ -1,8 +1,10 @@
 
 <?php
-class viewLogin{
-    function showLoginPage(){
-        if ( $_SESSION['isLogin'] == true) {
+class viewLogin
+{
+    public function showLoginPage()
+    {
+        if ($_SESSION['isLogin'] == true) {
             echo "<script>alert('Đăng nhập thành công')</script>";
             header("Refresh:0; url=index.php");
         }
@@ -13,7 +15,7 @@ class viewLogin{
         }
 
         echo
-        '
+            '
         <body>
             <div class="login-container">
                 <h1>Đăng nhập</h1>
@@ -29,6 +31,9 @@ class viewLogin{
                     <div class="form-group">
                         Nếu bạn chưa có tài khoản, <a href="index.php?signup=1" style="color: skyblue"> Tạo tài khoản </a>
                     </div>
+                    <div class="form-group">
+                        Nếu bạn quên mật khẩu, <a href="index.php?forget-password=1" style="color: skyblue"> Quên mật khẩu </a>
+                    </div>
                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION["csrf_token"]; ">
                     <div class="form-group">
                         <button type="submit" name="sub_login">Đăng nhập</button>
@@ -38,7 +43,6 @@ class viewLogin{
         </body>
         ';
 
-        
     }
 }
 ?>
